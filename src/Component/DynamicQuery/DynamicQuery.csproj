@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Copyright>© 2017, Simon Paramore</Copyright>
+    <PackageLicenseUrl>https://github.com/Furysoft/DynamicQuery/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Furysoft/DynamicQuery</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Furysoft/DynamicQuery</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Furysoft DynamicQuery</PackageTags>
+    <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+    <Authors>Simon Paramore</Authors>
+    <Company>Furysoft</Company>
+    <Description>Dynamic Query Generator</Description>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jetbrains.Annotations" Version="11.1.0" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="protobuf-net" Version="2.3.7" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
