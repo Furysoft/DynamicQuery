@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery.Parsers
+namespace Furysoft.DynamicQuery.Parsers
 {
     /// <summary>
     /// The Where Parser

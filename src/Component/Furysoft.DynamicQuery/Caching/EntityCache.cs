@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery.Caching
+namespace Furysoft.DynamicQuery.Caching
 {
     using System;
     using System.Collections.Concurrent;

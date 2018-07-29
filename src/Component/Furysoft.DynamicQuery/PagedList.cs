@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery
+namespace Furysoft.DynamicQuery
 {
     using System.Collections.Generic;
 

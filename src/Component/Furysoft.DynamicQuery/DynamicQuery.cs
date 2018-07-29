@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery
+namespace Furysoft.DynamicQuery
 {
     /// <summary>
     /// The Dynamic Query

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery.QueryComponents
+namespace Furysoft.DynamicQuery.QueryComponents
 {
     /// <summary>
     /// The Component

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace DynamicQuery.Interfaces
+namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
     /// The Cache
