@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IWhereParser.cs" company="Simon Paramore">
+// <copyright file="IWhereStatementParser.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,15 +9,15 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
     using Entities.QueryComponents;
 
     /// <summary>
-    /// The Where Parser
+    /// The Where Statement Parser
     /// </summary>
-    public interface IWhereParser
+    public interface IWhereStatementParser
     {
         /// <summary>
-        /// Parses the where.
+        /// Parses the statement.
         /// </summary>
-        /// <param name="where">The where.</param>
-        /// <returns>The <see cref="WhereNode"/></returns>
-        WhereNode ParseWhere(string where);
+        /// <param name="statement">The statement.</param>
+        /// <returns>The <see cref="UnaryNode"/></returns>
+        UnaryNode ParseStatement(string statement);
     }
 }

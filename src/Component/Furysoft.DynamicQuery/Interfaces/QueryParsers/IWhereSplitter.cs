@@ -1,23 +1,23 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IWhereParser.cs" company="Simon Paramore">
+// <copyright file="IWhereSplitter.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
-    using Entities.QueryComponents;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// The Where Parser
+    /// The Where Splitter Interface
     /// </summary>
-    public interface IWhereParser
+    public interface IWhereSplitter
     {
         /// <summary>
-        /// Parses the where.
+        /// Splits the where.
         /// </summary>
         /// <param name="where">The where.</param>
-        /// <returns>The <see cref="WhereNode"/></returns>
-        WhereNode ParseWhere(string where);
+        /// <returns>The list of where parts</returns>
+        List<string> SplitWhere(string where);
     }
 }
