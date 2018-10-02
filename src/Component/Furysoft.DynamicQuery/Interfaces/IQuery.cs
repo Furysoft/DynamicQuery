@@ -9,23 +9,22 @@ namespace Furysoft.DynamicQuery.Interfaces
     /// <summary>
     /// The Query Interface
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public interface IQuery<TEntity>
+    public interface IQuery
     {
         /// <summary>
         /// Sets the columns to select
         /// </summary>
         /// <param name="select">The select.</param>
-        /// <returns>The <see cref="IQuery{TEntity}"/></returns>
-        IQuery<TEntity> Select(string select);
+        /// <returns>The <see cref="IQuery"/></returns>
+        IQuery Select(string select);
 
         /// <summary>
         /// Selects this instance.
         /// </summary>
         /// <typeparam name="TReturnType">The type of the return type.</typeparam>
         /// <returns>
-        /// The <see cref="IQuery{TEntity}" />
+        /// The <see cref="IQuery" />
         /// </returns>
-        IQuery<TEntity> Select<TReturnType>();
+        IQuery Select<TReturnType>();
     }
 }

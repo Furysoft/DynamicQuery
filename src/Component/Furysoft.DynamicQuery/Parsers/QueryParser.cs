@@ -22,7 +22,7 @@ namespace Furysoft.DynamicQuery.Parsers
         /// <returns>
         /// The Query Interface
         /// </returns>
-        public IQuery<TEntity> Parse<TEntity>(string query)
+        public IQuery Parse<TEntity>(string query)
         {
             throw new System.NotImplementedException();
         }

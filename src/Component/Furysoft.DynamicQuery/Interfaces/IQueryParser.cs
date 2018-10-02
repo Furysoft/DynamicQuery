@@ -19,6 +19,6 @@ namespace Furysoft.DynamicQuery.Interfaces
         /// <returns>
         /// The Query Interface
         /// </returns>
-        IQuery<TEntity> Parse<TEntity>(string query);
+        IQuery Parse<TEntity>(string query);
     }
 }
