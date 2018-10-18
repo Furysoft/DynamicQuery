@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
+namespace Furysoft.DynamicQuery.Interfaces.Splitters
 {
     using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
     public interface IWhereSplitter
     {
         /// <summary>
-        /// Splits the where.
+        /// Splits a where statement based on key conjunctions
         /// </summary>
         /// <param name="where">The where.</param>
         /// <returns>The list of where parts</returns>

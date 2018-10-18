@@ -23,11 +23,6 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
         public bool LowerInclusive { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the upper.
         /// </summary>
         public object Upper { get; set; }
@@ -35,9 +30,6 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
         /// <summary>
         /// Gets or sets a value indicating whether [upper inclusive].
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if [upper inclusive]; otherwise, <c>false</c>.
-        /// </value>
         public bool UpperInclusive { get; set; }
     }
 }

@@ -37,11 +37,6 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents
         public WhereNode LeftNode { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the right node.
         /// </summary>
         public WhereNode RightNode { get; set; }

@@ -4,9 +4,11 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Parsers
+namespace Furysoft.DynamicQuery
 {
     using Interfaces;
+    using Interfaces.Caching;
+    using Logic.Caching;
 
     /// <summary>
     /// The Query Parser
@@ -14,6 +16,11 @@ namespace Furysoft.DynamicQuery.Parsers
     /// <seealso cref="IQueryParser" />
     public sealed class QueryParser : IQueryParser
     {
+        /// <summary>
+        /// The parser cache
+        /// </summary>
+        private static readonly IParserCache ParserCache = new ParserCache();
+
         /// <summary>
         /// Parses the specified query.
         /// </summary>
@@ -24,7 +31,9 @@ namespace Furysoft.DynamicQuery.Parsers
         /// </returns>
         public IQuery Parse<TEntity>(string query)
         {
-            throw new System.NotImplementedException();
+            var entityParser = ParserCache.GetParser<TEntity>();
+
+            return entityParser.ParseQuery(query);
         }
     }
 }

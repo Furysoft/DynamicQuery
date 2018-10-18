@@ -9,7 +9,7 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
     /// <summary>
     /// The Greater Than Node
     /// </summary>
-    public sealed class GreaterThanNode
+    public sealed class GreaterThanNode : UnaryNode
     {
         /// <summary>
         /// Gets or sets the lower.
@@ -20,10 +20,5 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
         /// Gets or sets a value indicating whether [lower inclusive].
         /// </summary>
         public bool Inclusive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
     }
 }

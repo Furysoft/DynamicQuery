@@ -27,5 +27,12 @@ namespace Furysoft.DynamicQuery.Interfaces
         ///   <c>true</c> if the specified name is permitted; otherwise, <c>false</c>.
         /// </returns>
         bool IsPermitted(string name);
+
+        /// <summary>
+        /// Parses the query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>The <see cref="IQuery"/></returns>
+        IQuery ParseQuery(string query);
     }
 }

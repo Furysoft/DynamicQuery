@@ -4,9 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
+namespace Furysoft.DynamicQuery.Interfaces.Splitters
 {
-    using System.Collections.Generic;
     using Entities;
 
     /// <summary>
@@ -15,7 +14,7 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
     public interface ITokenSplitter
     {
         /// <summary>
-        /// Splits the by token.
+        /// Splits a provided query statement based on key operators
         /// </summary>
         /// <param name="query">The query.</param>
         /// <returns>The list of string</returns>

@@ -12,11 +12,6 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
     public sealed class EqualsNode : UnaryNode
     {
         /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether this instance is not.
         /// </summary>
         public bool IsNot { get; set; }

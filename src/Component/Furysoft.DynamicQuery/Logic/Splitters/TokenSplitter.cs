@@ -4,17 +4,14 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Logic.QueryParsers
+namespace Furysoft.DynamicQuery.Logic.Splitters
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using Entities;
-    using Interfaces.QueryParsers;
+    using Interfaces.Splitters;
 
-    /// <summary>
-    /// The Token Splitter
-    /// </summary>
+    /// <inheritdoc />
     public sealed class TokenSplitter : ITokenSplitter
     {
         /// <summary>
@@ -22,11 +19,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// </summary>
         private static readonly Regex RegexQuery = new Regex("(where::|orderby::|page::)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-        /// <summary>
-        /// Splits the by token.
-        /// </summary>
-        /// <param name="query">The query.</param>
-        /// <returns>The list of string</returns>
+        /// <inheritdoc />
         public TokenSplitterResponse SplitByToken(string query)
         {
             var rtn = new TokenSplitterResponse();
