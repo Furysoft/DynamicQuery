@@ -11,17 +11,34 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
     using System.Text.RegularExpressions;
     using Entities;
     using Entities.QueryComponents;
+    using Interfaces;
     using Interfaces.QueryParsers;
+    using JetBrains.Annotations;
 
     /// <summary>
     /// The Order By Parser
     /// </summary>
-    public sealed class OrderByParser : IOrderByParser
+    public sealed class OrderByParser<TEntity> : IOrderByParser
     {
         /// <summary>
         /// The regex query
         /// </summary>
         private static readonly Regex RegexQuery = new Regex("(asc|desc)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
+
+        /// <summary>
+        /// The entity parser
+        /// </summary>
+        [NotNull]
+        private readonly IEntityParser<TEntity> entityParser;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderByParser{TEntity}"/> class.
+        /// </summary>
+        /// <param name="entityParser">The entity parser.</param>
+        public OrderByParser([NotNull] IEntityParser<TEntity> entityParser)
+        {
+            this.entityParser = entityParser;
+        }
 
         /// <summary>
         /// Parses the order by.
@@ -37,6 +54,13 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
             for (var i = 0; i < strings.Count; i = i + 2)
             {
                 var orderByNode = GetOrderByNode(strings[i], strings[i + 1]);
+
+                // If the order by column name is not in the permitted list, skip it.
+                if (!this.entityParser.IsPermitted(orderByNode.Name))
+                {
+                    continue;
+                }
+
                 rtn.Add(orderByNode);
             }
 

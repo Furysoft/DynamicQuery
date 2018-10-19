@@ -47,7 +47,7 @@ namespace Furysoft.DynamicQuery.Logic.Caching
 
             var whereStatementParser = new WhereStatementParser<TEntity>(rangeParser, equalsParser, entityParser);
             var whereParser = new WhereParser(whereStatementParser);
-            var orderByParser = new OrderByParser();
+            var orderByParser = new OrderByParser<TEntity>(entityParser);
             var pageParser = new PageParser();
 
             return new StatementParser(tokenSplitter, whereParser, pageParser, orderByParser);
