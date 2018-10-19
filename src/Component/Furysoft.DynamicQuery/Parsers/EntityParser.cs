@@ -12,23 +12,10 @@ namespace Furysoft.DynamicQuery.Parsers
     using System.Runtime.Serialization;
     using Attributes;
     using Interfaces;
-    using Interfaces.Splitters;
-    using JetBrains.Annotations;
-    using Logic;
 
-    /// <summary>
-    /// The Entity Parser
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <seealso cref="Furysoft.DynamicQuery.Interfaces.IEntityParser{TEntity}" />
+    /// <inheritdoc />
     public sealed class EntityParser<TEntity> : IEntityParser<TEntity>
     {
-        /// <summary>
-        /// The token splitter
-        /// </summary>
-        [NotNull]
-        private readonly ITokenSplitter tokenSplitter;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityParser{TEntity}"/> class.
         /// </summary>
@@ -52,16 +39,6 @@ namespace Furysoft.DynamicQuery.Parsers
         public bool IsPermitted(string name)
         {
             return this.PermittedProperties.Contains(name);
-        }
-
-        /// <summary>
-        /// Parses the query.
-        /// </summary>
-        /// <param name="query">The query.</param>
-        /// <returns>The <see cref="IQuery"/></returns>
-        public IQuery ParseQuery(string query)
-        {
-            return new Query();
         }
 
         /// <summary>

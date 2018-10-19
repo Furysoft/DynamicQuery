@@ -1,19 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Node.cs" company="Simon Paramore">
+// <copyright file="IStatementParser.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents
+namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
-    /// The Node
+    /// The Statement Parser
     /// </summary>
-    public abstract class Node
+    public interface IStatementParser
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Parses the query.
         /// </summary>
-        public string Name { get; set; }
+        /// <param name="query">The query.</param>
+        /// <returns>The <see cref="IQuery"/></returns>
+        IQuery ParseQuery(string query);
     }
 }

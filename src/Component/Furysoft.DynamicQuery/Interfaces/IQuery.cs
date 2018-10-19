@@ -6,25 +6,22 @@
 
 namespace Furysoft.DynamicQuery.Interfaces
 {
+    using System.Collections.Generic;
+    using Entities.Nodes;
+    using Entities.QueryComponents;
+
     /// <summary>
     /// The Query Interface
     /// </summary>
     public interface IQuery
     {
-        /// <summary>
-        /// Sets the columns to select
-        /// </summary>
-        /// <param name="select">The select.</param>
-        /// <returns>The <see cref="IQuery"/></returns>
-        IQuery Select(string select);
+        /// <summary>Gets the order by node.</summary>
+        List<OrderByNode> OrderByNodes { get; }
 
-        /// <summary>
-        /// Selects this instance.
-        /// </summary>
-        /// <typeparam name="TReturnType">The type of the return type.</typeparam>
-        /// <returns>
-        /// The <see cref="IQuery" />
-        /// </returns>
-        IQuery Select<TReturnType>();
+        /// <summary>Gets the page node.</summary>
+        PageNode PageNode { get; }
+
+        /// <summary>Gets the where node.</summary>
+        Node WhereNode { get; }
     }
 }

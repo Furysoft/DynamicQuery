@@ -6,7 +6,7 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
-    using Entities.QueryComponents;
+    using Entities.Nodes;
 
     /// <summary>
     /// The Where Statement Parser

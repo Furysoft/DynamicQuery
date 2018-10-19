@@ -16,6 +16,6 @@ namespace Furysoft.DynamicQuery.Interfaces.Caching
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <returns>The <see cref="IEntityParser{TEntity}"/></returns>
-        IEntityParser<TEntity> GetParser<TEntity>();
+        IStatementParser GetParser<TEntity>();
     }
 }

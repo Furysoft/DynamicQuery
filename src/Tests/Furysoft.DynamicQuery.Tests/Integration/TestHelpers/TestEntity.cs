@@ -7,6 +7,7 @@
 namespace Furysoft.DynamicQuery.Tests.Integration.TestHelpers
 {
     using System;
+    using Attributes;
 
     /// <summary>
     /// The Test Entity
@@ -21,10 +22,11 @@ namespace Furysoft.DynamicQuery.Tests.Integration.TestHelpers
         /// <summary>
         /// Gets or sets the age.
         /// </summary>
+        [Name("age")]
         public int Age { get; set; }
 
         /// <summary>
-        /// Sets the birth date.
+        /// Gets or sets the birth date.
         /// </summary>
         public DateTime BirthDate { get; set; }
     }

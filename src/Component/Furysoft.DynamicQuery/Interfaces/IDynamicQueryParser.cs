@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ISqlBuilder.cs" company="Simon Paramore">
+// <copyright file="IDynamicQueryParser.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,23 +7,18 @@
 namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
-    /// The SQL Builder
+    /// The Query Parser Interface
     /// </summary>
-    public interface ISqlBuilder
+    public interface IDynamicQueryParser
     {
         /// <summary>
-        /// Builds the SQL.
+        /// Parses the specified query.
         /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="query">The query.</param>
         /// <returns>
-        /// The SQL Query
+        /// The Query Interface
         /// </returns>
-        ISqlQuery BuildSql();
-
-        /// <summary>
-        /// Selects the specified select clause.
-        /// </summary>
-        /// <param name="selectClause">The select clause.</param>
-        /// <returns>The ISqlBuilder</returns>
-        ISqlBuilder Select(string selectClause);
+        IQuery Parse<TEntity>(string query);
     }
 }

@@ -27,39 +27,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
         [Test]
         public void Do()
         {
-            var testString1 = "test:value";
-            var testString2 = "test:value and test2:value";
-            var testString3 = "test:value and test2:value or test3:valuee";
-            var testString4 = "test:value and test2:value or test3:value and test4:value";
-            var testString5 = "test:value and test2:value or test3:value and test4:value and test5:value";
-        //    var tree = ParseTree(testString1);
-       //     var node = ParseTree(testString2);
-       //     var tree1 = ParseTree(testString3);
-       //     var tree2 = ParseTree(testString4);
-            var tree3 = ParseTree(testString5);
+            var testString1 = "test1:value and (test2:value or test3:value)";
 
-            Print(tree3);
-        }
-
-        /// <summary>
-        /// Prints the specified node.
-        /// </summary>
-        /// <param name="node">The node.</param>
-        /// <param name="indent">The indent.</param>
-        private static void Print(Node node, int indent = 0)
-        {
-            var s = new string(' ', indent * 4);
-
-            if (node is UnaryNode unary)
-            {
-                Console.WriteLine($"{s}{unary.Data}");
-            }
-
-            if (node is BinaryNode binary)
-            {
-                Print(binary.Left);
-                Print(binary.Right);
-            }
+            var brackets = ParseBrackets(testString1);
         }
 
         /// <summary>
@@ -69,13 +39,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
         /// <returns>
         /// The <see cref="Node" />
         /// </returns>
-        private static Node ParseTree(string stringPart)
+        private static Node ParseStatement(string stringPart)
         {
-            var matchCollection = RegexTest.Matches(stringPart);
-
-            var midIndex = matchCollection.Count / 2;
-
-            var strings = RegexTest.Split(stringPart, 2, midIndex + 1).ToList();
+            var strings = RegexTest.Split(stringPart, 2).ToList();
 
             // If there's only 1, we're done. No need to parse more!
             if (strings.Count == 1)
@@ -85,9 +51,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
 
             return new BinaryNode
             {
-                Left = ParseTree(strings[0]),
+                Left = ParseStatement(strings[0]),
                 Conjunctive = strings[1],
-                Right = ParseTree(strings[2])
+                Right = ParseStatement(strings[2])
             };
         }
 
@@ -95,9 +61,10 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
         /// Does the stuff.
         /// </summary>
         /// <param name="data">The data.</param>
-        /// <param name="level">The level.</param>
-        /// <returns>The <see cref="Node"/></returns>
-        private Node ParseBrackets(string data, int level)
+        /// <returns>
+        /// The <see cref="Node" />
+        /// </returns>
+        private static Node ParseBrackets(string data)
         {
             var leftBracketIndex = -1; // The index of the currently processed left bracket.
             var bracketDepth = 0; // The number of brackets deep we are currently
@@ -136,7 +103,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
                         // The current sub query is the bit between the left index and the current index.
                         var subQuery = data.Substring(leftBracketIndex + 1, i - leftBracketIndex - 1);
 
-                        var doStuff = this.ParseBrackets(subQuery, level++);
+                        var doStuff = ParseBrackets(subQuery);
                         children.Add(doStuff);
 
                         // Reset the leftBracket Index so that we can find any more bracket pairs at this level
@@ -147,9 +114,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
 
             if (!children.Any())
             {
-                var tree = ParseTree(data);
-
-                return null;
+                return ParseStatement(data);
             }
 
             return new TreeNode

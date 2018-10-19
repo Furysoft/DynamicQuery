@@ -6,16 +6,13 @@
 
 namespace Furysoft.DynamicQuery.Entities.QueryComponents
 {
+    using Nodes;
+
     /// <summary>
     /// The Order By Node
     /// </summary>
-    public sealed class OrderByNode
+    public sealed class OrderByNode : UnaryNode
     {
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string Name { get; set; }
-
         /// <summary>
         /// Gets or sets the sort order.
         /// </summary>

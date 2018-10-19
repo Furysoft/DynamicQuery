@@ -6,9 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
 {
+    using System;
     using System.Linq;
-    using Entities.QueryComponents;
-    using Entities.QueryComponents.WhereNodes;
+    using Entities.Nodes;
+    using Entities.Operations;
     using Interfaces.QueryParsers;
 
     /// <summary>
@@ -23,18 +24,48 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
         /// <returns>The <see cref="UnaryNode"/></returns>
         public UnaryNode ParseStatement(string statement)
         {
+            var cleanedStatement = statement;
+
             var isNot = false;
-            if (statement.First() == '!')
+            if (cleanedStatement.First() == '!')
             {
                 isNot = true;
-                statement = statement.Substring(1);
+                cleanedStatement = cleanedStatement.Substring(1);
             }
 
-            return new EqualsNode
+            // If it's a number
+            if (int.TryParse(cleanedStatement, out var intValue))
+            {
+                return new EqualsOperator
+                {
+                    Name = null,
+                    Value = intValue,
+                    IsNot = isNot,
+                    Statement = statement
+                };
+            }
+
+            // If it's a datetime
+            if (DateTime.TryParse(cleanedStatement, out var dateTimeValue))
+            {
+                return new EqualsOperator
+                {
+                    Name = null,
+                    Value = dateTimeValue,
+                    IsNot = isNot,
+                    Statement = statement
+                };
+            }
+
+            // Trim after, if " are present, the entity is treated as a string
+            cleanedStatement = cleanedStatement.Trim('"');
+
+            return new EqualsOperator
             {
                 Name = null,
-                Value = statement.Trim('"'),
-                IsNot = isNot
+                Value = cleanedStatement,
+                IsNot = isNot,
+                Statement = statement
             };
         }
     }

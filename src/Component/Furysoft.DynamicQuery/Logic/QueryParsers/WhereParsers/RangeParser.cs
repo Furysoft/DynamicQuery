@@ -8,8 +8,8 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
 {
     using System;
     using System.Linq;
-    using Entities.QueryComponents;
-    using Entities.QueryComponents.WhereNodes;
+    using Entities.Nodes;
+    using Entities.Operations;
     using Interfaces.QueryParsers;
 
     /// <summary>
@@ -64,10 +64,12 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
             {
                 int.TryParse(parts[1], out var lowerVal);
 
-                return new LessThanNode
+                return new LessThanOperator
                 {
                     Value = lowerVal,
-                    Inclusive = upperInclusive
+                    Inclusive = upperInclusive,
+                    Name = null,
+                    Statement = statement
                 };
             }
 
@@ -75,22 +77,26 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
             {
                 int.TryParse(parts[0], out var upperVal);
 
-                return new GreaterThanNode
+                return new GreaterThanOperator
                 {
                     Value = upperVal,
-                    Inclusive = lowerInclusive
+                    Inclusive = lowerInclusive,
+                    Name = null,
+                    Statement = statement
                 };
             }
 
             int.TryParse(parts[0], out var lower);
             int.TryParse(parts[1], out var upper);
 
-            return new RangeNode
+            return new RangeOperator
             {
                 LowerInclusive = lowerInclusive,
                 UpperInclusive = upperInclusive,
                 Lower = lower,
-                Upper = upper
+                Upper = upper,
+                Name = null,
+                Statement = statement
             };
         }
     }

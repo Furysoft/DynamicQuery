@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RangeParserTests.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="RangeParserTests.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -8,7 +8,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 {
     using System.Diagnostics;
     using DynamicQuery.Logic.QueryParsers.WhereParsers;
-    using Entities.QueryComponents.WhereNodes;
+    using Entities.Operations;
     using NUnit.Framework;
 
     /// <summary>
@@ -36,9 +36,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(RangeNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(RangeOperator)));
 
-            var rangeNode = (RangeNode)unaryNode;
+            var rangeNode = (RangeOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
 
@@ -68,9 +68,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(LessThanNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(LessThanOperator)));
 
-            var rangeNode = (LessThanNode)unaryNode;
+            var rangeNode = (LessThanOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
             Assert.That(rangeNode.Value, Is.EqualTo(50));
@@ -96,9 +96,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(GreaterThanNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(GreaterThanOperator)));
 
-            var rangeNode = (GreaterThanNode)unaryNode;
+            var rangeNode = (GreaterThanOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
             Assert.That(rangeNode.Value, Is.EqualTo(10));
@@ -124,9 +124,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(RangeNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(RangeOperator)));
 
-            var rangeNode = (RangeNode)unaryNode;
+            var rangeNode = (RangeOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
 
@@ -156,9 +156,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(LessThanNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(LessThanOperator)));
 
-            var rangeNode = (LessThanNode)unaryNode;
+            var rangeNode = (LessThanOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
             Assert.That(rangeNode.Value, Is.EqualTo(50));
@@ -184,9 +184,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            Assert.That(unaryNode, Is.TypeOf(typeof(GreaterThanNode)));
+            Assert.That(unaryNode, Is.TypeOf(typeof(GreaterThanOperator)));
 
-            var rangeNode = (GreaterThanNode)unaryNode;
+            var rangeNode = (GreaterThanOperator)unaryNode;
 
             Assert.That(rangeNode.Name, Is.Null);
             Assert.That(rangeNode.Value, Is.EqualTo(10));

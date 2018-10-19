@@ -11,6 +11,9 @@ namespace Furysoft.DynamicQuery.Logic.Caching
     using Interfaces;
     using Interfaces.Caching;
     using Parsers;
+    using QueryParsers;
+    using QueryParsers.WhereParsers;
+    using Splitters;
 
     /// <inheritdoc />
     internal sealed class ParserCache : IParserCache
@@ -21,9 +24,9 @@ namespace Furysoft.DynamicQuery.Logic.Caching
         private static readonly ConcurrentDictionary<Type, object> Cache = new ConcurrentDictionary<Type, object>();
 
         /// <inheritdoc />
-        public IEntityParser<TEntity> GetParser<TEntity>()
+        public IStatementParser GetParser<TEntity>()
         {
-            return (IEntityParser<TEntity>)Cache.GetOrAdd(
+            return (IStatementParser)Cache.GetOrAdd(
                 typeof(TEntity),
                 type => Initialize<TEntity>());
         }
@@ -35,7 +38,19 @@ namespace Furysoft.DynamicQuery.Logic.Caching
         /// <returns>The IEntityParser</returns>
         private static object Initialize<TEntity>()
         {
-            return new EntityParser<TEntity>();
+            var tokenSplitter = new TokenSplitter();
+
+            var rangeParser = new RangeParser();
+            var equalsParser = new EqualsParser();
+
+            var entityParser = new EntityParser<TEntity>();
+
+            var whereStatementParser = new WhereStatementParser<TEntity>(rangeParser, equalsParser, entityParser);
+            var whereParser = new WhereParser(whereStatementParser);
+            var orderByParser = new OrderByParser();
+            var pageParser = new PageParser();
+
+            return new StatementParser(tokenSplitter, whereParser, pageParser, orderByParser);
         }
     }
 }

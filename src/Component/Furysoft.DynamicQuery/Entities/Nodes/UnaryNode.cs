@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents
+namespace Furysoft.DynamicQuery.Entities.Nodes
 {
     /// <summary>
     /// The Unary Node

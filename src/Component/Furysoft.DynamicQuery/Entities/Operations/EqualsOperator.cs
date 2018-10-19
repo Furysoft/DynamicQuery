@@ -1,15 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EqualsNode.cs" company="Simon Paramore">
+// <copyright file="EqualsOperator.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
+namespace Furysoft.DynamicQuery.Entities.Operations
 {
+    using Nodes;
+
     /// <summary>
     /// The Equals Node
     /// </summary>
-    public sealed class EqualsNode : UnaryNode
+    public sealed class EqualsOperator : UnaryNode
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is not.

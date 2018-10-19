@@ -20,7 +20,6 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
         [Test]
         public void SplitWhere_WhenWhereQuery_ExpectAllPartsBack()
         {
-
         }
     }
 }

@@ -6,6 +6,7 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
+    using Entities.Nodes;
     using Entities.QueryComponents;
 
     /// <summary>
@@ -18,6 +19,6 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// </summary>
         /// <param name="where">The where.</param>
         /// <returns>The <see cref="WhereNode"/></returns>
-        WhereNode ParseWhere(string where);
+        Node ParseWhere(string where);
     }
 }

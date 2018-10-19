@@ -1,15 +1,24 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IStringParser.cs" company="Simon Paramore">
+// <copyright file="Conjunctives.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Interfaces
+namespace Furysoft.DynamicQuery.Entities.Nodes
 {
     /// <summary>
-    /// The String Parser
+    /// The Conjunctives
     /// </summary>
-    public interface IStringParser
+    public enum Conjunctives
     {
+        /// <summary>
+        /// The and
+        /// </summary>
+        And,
+
+        /// <summary>
+        /// The or
+        /// </summary>
+        Or
     }
 }

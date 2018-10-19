@@ -21,14 +21,15 @@ namespace Furysoft.DynamicQuery.Tests.Integration
         /// Parses the when query passed in expect parsed correctly.
         /// </summary>
         [Test]
+        [Repeat(2)]
         public void Parse_WhenQueryPassedIn_ExpectParsedCorrectly()
         {
             // Arrange
-            IQueryParser queryParser = new QueryParser();
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
 
             // Act
             var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:[10,25]orderby::age::page:[1,10]");
+            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:[10,25]orderby::age asc page::1,10");
             stopwatch.Stop();
 
             // Assert

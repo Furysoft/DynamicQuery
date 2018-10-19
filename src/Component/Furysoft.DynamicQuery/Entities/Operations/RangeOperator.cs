@@ -1,16 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RangeNode.cs" company="Simon Paramore">
+// <copyright file="RangeOperator.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
+namespace Furysoft.DynamicQuery.Entities.Operations
 {
+    using Nodes;
+
     /// <summary>
     /// The Range Node
     /// </summary>
-    /// <seealso cref="Furysoft.DynamicQuery.Entities.QueryComponents.UnaryNode" />
-    public sealed class RangeNode : UnaryNode
+    /// <seealso cref="UnaryNode" />
+    public sealed class RangeOperator : UnaryNode
     {
         /// <summary>
         /// Gets or sets the lower.

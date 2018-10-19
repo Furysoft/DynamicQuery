@@ -8,7 +8,8 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 {
     using System.Diagnostics;
     using DynamicQuery.Logic.QueryParsers;
-    using Entities.QueryComponents.WhereNodes;
+    using Entities.Operations;
+    using Interfaces;
     using Interfaces.QueryParsers;
     using Moq;
     using NUnit.Framework;
@@ -28,15 +29,21 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             // Arrange
             var mockRangeParser = new Mock<IWhereStatementParser>();
             var mockEqualsParser = new Mock<IWhereStatementParser>();
+            var mockEntityParser = new Mock<IEntityParser<string>>();
 
-            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new EqualsNode
+            mockEqualsParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new EqualsOperator
             {
                 Name = null,
                 IsNot = false,
                 Value = "test"
             });
 
-            var whereStatementParser = new WhereStatementParser(mockRangeParser.Object, mockEqualsParser.Object);
+            mockEntityParser.Setup(r => r.IsPermitted(It.IsAny<string>())).Returns(true);
+
+            var whereStatementParser = new WhereStatementParser<string>(
+                mockRangeParser.Object,
+                mockEqualsParser.Object,
+                mockEntityParser.Object);
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -48,7 +55,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            var equalsNode = unaryNode as EqualsNode;
+            var equalsNode = unaryNode as EqualsOperator;
 
             Assert.That(equalsNode, Is.Not.Null);
 
@@ -66,8 +73,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             // Arrange
             var mockRangeParser = new Mock<IWhereStatementParser>();
             var mockEqualsParser = new Mock<IWhereStatementParser>();
+            var mockEntityParser = new Mock<IEntityParser<string>>();
 
-            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new RangeNode
+            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new RangeOperator
             {
                 Name = null,
                 LowerInclusive = false,
@@ -76,7 +84,12 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 Lower = 10
             });
 
-            var whereStatementParser = new WhereStatementParser(mockRangeParser.Object, mockEqualsParser.Object);
+            mockEntityParser.Setup(r => r.IsPermitted(It.IsAny<string>())).Returns(true);
+
+            var whereStatementParser = new WhereStatementParser<string>(
+                mockRangeParser.Object,
+                mockEqualsParser.Object,
+                mockEntityParser.Object);
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -88,7 +101,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 
             Assert.That(unaryNode, Is.Not.Null);
 
-            var rangeNode = unaryNode as RangeNode;
+            var rangeNode = unaryNode as RangeOperator;
 
             Assert.That(rangeNode, Is.Not.Null);
 
@@ -98,6 +111,44 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 
             Assert.That(rangeNode.Upper, Is.EqualTo(250));
             Assert.That(rangeNode.UpperInclusive, Is.False);
+        }
+
+        /// <summary>
+        /// Parses the statement when property name not permitted expect null.
+        /// </summary>
+        [Test]
+        public void ParseStatement_WhenPropertyNameNotPermitted_ExpectNull()
+        {
+            // Arrange
+            var mockRangeParser = new Mock<IWhereStatementParser>();
+            var mockEqualsParser = new Mock<IWhereStatementParser>();
+            var mockEntityParser = new Mock<IEntityParser<string>>();
+
+            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new RangeOperator
+            {
+                Name = null,
+                LowerInclusive = false,
+                UpperInclusive = false,
+                Upper = 250,
+                Lower = 10
+            });
+
+            mockEntityParser.Setup(r => r.IsPermitted(It.IsAny<string>())).Returns(false);
+
+            var whereStatementParser = new WhereStatementParser<string>(
+                mockRangeParser.Object,
+                mockEqualsParser.Object,
+                mockEntityParser.Object);
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var unaryNode = whereStatementParser.ParseStatement("column:[10,250]");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(unaryNode, Is.Null);
         }
     }
 }

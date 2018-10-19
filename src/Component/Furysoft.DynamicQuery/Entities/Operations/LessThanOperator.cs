@@ -1,26 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PageNode.cs" company="Simon Paramore">
+// <copyright file="LessThanOperator.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents
+namespace Furysoft.DynamicQuery.Entities.Operations
 {
     using Nodes;
 
     /// <summary>
-    /// The Page Node
+    /// The Less Than Operator
     /// </summary>
-    public sealed class PageNode : UnaryNode
+    /// <seealso cref="UnaryNode" />
+    public sealed class LessThanOperator : UnaryNode
     {
         /// <summary>
-        /// Gets or sets the items per page.
+        /// Gets or sets a value indicating whether [lower inclusive].
         /// </summary>
-        public int ItemsPerPage { get; set; }
+        public bool Inclusive { get; set; }
 
         /// <summary>
-        /// Gets or sets the page.
+        /// Gets or sets the lower.
         /// </summary>
-        public int Page { get; set; }
+        public object Value { get; set; }
     }
 }

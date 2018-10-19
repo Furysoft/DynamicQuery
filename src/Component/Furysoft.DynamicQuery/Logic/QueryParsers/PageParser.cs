@@ -21,6 +21,11 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// <returns>The Page Node</returns>
         public PageNode Parse(string pageData)
         {
+            if (pageData == null)
+            {
+                return null;
+            }
+
             var strings = pageData.Split(',');
 
             int.TryParse(strings[0], out var page);

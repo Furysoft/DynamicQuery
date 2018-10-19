@@ -1,15 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GreaterThanNode.cs" company="Simon Paramore">
+// <copyright file="GreaterThanOperator.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities.QueryComponents.WhereNodes
+namespace Furysoft.DynamicQuery.Entities.Operations
 {
+    using Nodes;
+
     /// <summary>
-    /// The Greater Than Node
+    /// The Greater Than Operator
     /// </summary>
-    public sealed class GreaterThanNode : UnaryNode
+    /// <seealso cref="Furysoft.DynamicQuery.Entities.Nodes.UnaryNode" />
+    public sealed class GreaterThanOperator : UnaryNode
     {
         /// <summary>
         /// Gets or sets the lower.

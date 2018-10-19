@@ -6,7 +6,8 @@
 
 namespace Furysoft.DynamicQuery.Logic
 {
-    using System.Linq;
+    using System.Collections.Generic;
+    using Entities.Nodes;
     using Entities.QueryComponents;
     using Interfaces;
 
@@ -17,43 +18,25 @@ namespace Furysoft.DynamicQuery.Logic
     public sealed class Query : IQuery
     {
         /// <summary>
-        /// Gets the order by node.
+        /// Initializes a new instance of the <see cref="Query" /> class.
         /// </summary>
-        public OrderByNode OrderByNode { get; }
-
-        /// <summary>
-        /// Gets the select node.
-        /// </summary>
-        public SelectNode SelectNode { get; private set; }
-
-        /// <summary>
-        /// Gets The where node
-        /// </summary>
-        public WhereNode WhereNode { get; }
-
-        /// <summary>
-        /// Sets the columns to select
-        /// </summary>
-        /// <param name="select">The select.</param>
-        /// <returns>The <see cref="IQuery"/></returns>
-        public IQuery Select(string select)
+        /// <param name="orderByNodes">The order by nodes.</param>
+        /// <param name="node">The node.</param>
+        /// <param name="pageNode">The page node.</param>
+        public Query(List<OrderByNode> orderByNodes, Node node, PageNode pageNode)
         {
-            var selectColumns = select.Split(',').Select(r => r.Trim()).ToList();
-            this.SelectNode = new SelectNode { SelectColumns = selectColumns };
-
-            return this;
+            this.OrderByNodes = orderByNodes;
+            this.PageNode = pageNode;
+            this.WhereNode = node;
         }
 
-        /// <summary>
-        /// Selects this instance.
-        /// </summary>
-        /// <typeparam name="TReturnType">The type of the return type.</typeparam>
-        /// <returns>
-        /// The <see cref="IQuery" />
-        /// </returns>
-        public IQuery Select<TReturnType>()
-        {
-            throw new System.NotImplementedException();
-        }
+        /// <summary>Gets the order by node.</summary>
+        public List<OrderByNode> OrderByNodes { get; }
+
+        /// <summary>Gets the page node.</summary>
+        public PageNode PageNode { get; }
+
+        /// <summary>Gets the where node.</summary>
+        public Node WhereNode { get; }
     }
 }
