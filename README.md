@@ -36,7 +36,7 @@ public class SampleParsing
 
     public void ParseSample()
     {
-        IQuery query = this.queryParser.Parse<SampleEntity>("where::Name:\"Test Name\" and Age:24 and Password:value");
+        IQuery query = this.queryParser.Parse<SampleEntity>("where::Name:\"Test Name\" and Age:24 and Password:value orderby::Name page::1,25");
     }
 }
 ```
@@ -134,5 +134,5 @@ Paging data can be provided using the *page::* component. The format takes a pag
 example:
 
 ```csharp
-"page::[1,5]" // Page 1, 5 Items per page
+"page::1,5" // Page 1, 5 Items per page
 ```

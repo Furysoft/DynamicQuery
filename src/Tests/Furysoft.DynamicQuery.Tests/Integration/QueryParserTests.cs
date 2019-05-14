@@ -31,13 +31,13 @@ namespace Furysoft.DynamicQuery.Tests.Integration
 
             // Act
             var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:[10,25]orderby::age asc page::1,10");
+            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:asd orderby::age asc page::1,10");
             stopwatch.Stop();
 
-            query.WhereNode = Operator.And(Operator.Equals("asd", 12), Operator.Equals("asd2", 23));
+      //      query.WhereNode = Operator.And(Operator.Equals("asd", 12), Operator.Equals("asd2", 23));
 
-            query.Where(EqualsNode.CreateEquals("test", "bob"));
-            query.Where("val:bob");
+         //   query.Where(EqualsNode.CreateEquals("test", "bob"));
+           // query.Where("val:bob");
 
             // Assert
             this.WriteTimeElapsed(stopwatch);
