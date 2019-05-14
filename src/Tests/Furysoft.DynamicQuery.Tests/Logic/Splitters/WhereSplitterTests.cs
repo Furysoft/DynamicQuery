@@ -6,10 +6,8 @@
 
 namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Text.RegularExpressions;
     using NUnit.Framework;
 
@@ -30,31 +28,6 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
             var testString1 = "test1:value and (test2:value or test3:value)";
 
             var brackets = ParseBrackets(testString1);
-        }
-
-        /// <summary>
-        /// Handles the split.
-        /// </summary>
-        /// <param name="stringPart">The string part.</param>
-        /// <returns>
-        /// The <see cref="Node" />
-        /// </returns>
-        private static Node ParseStatement(string stringPart)
-        {
-            var strings = RegexTest.Split(stringPart, 2).ToList();
-
-            // If there's only 1, we're done. No need to parse more!
-            if (strings.Count == 1)
-            {
-                return new UnaryNode { Data = strings[0] };
-            }
-
-            return new BinaryNode
-            {
-                Left = ParseStatement(strings[0]),
-                Conjunctive = strings[1],
-                Right = ParseStatement(strings[2])
-            };
         }
 
         /// <summary>
@@ -120,6 +93,31 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
             return new TreeNode
             {
                 Children = children
+            };
+        }
+
+        /// <summary>
+        /// Handles the split.
+        /// </summary>
+        /// <param name="stringPart">The string part.</param>
+        /// <returns>
+        /// The <see cref="Node" />
+        /// </returns>
+        private static Node ParseStatement(string stringPart)
+        {
+            var strings = RegexTest.Split(stringPart, 2).ToList();
+
+            // If there's only 1, we're done. No need to parse more!
+            if (strings.Count == 1)
+            {
+                return new UnaryNode { Data = strings[0] };
+            }
+
+            return new BinaryNode
+            {
+                Left = ParseStatement(strings[0]),
+                Conjunctive = strings[1],
+                Right = ParseStatement(strings[2])
             };
         }
 

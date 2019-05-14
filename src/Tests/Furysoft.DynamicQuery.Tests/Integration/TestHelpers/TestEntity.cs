@@ -12,6 +12,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration.TestHelpers
     /// <summary>
     /// The Test Entity
     /// </summary>
+    // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class TestEntity
     {
         /// <summary>

@@ -4,6 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+// ReSharper disable UnusedMember.Global
 namespace Furysoft.DynamicQuery.Entities.Nodes
 {
     /// <summary>

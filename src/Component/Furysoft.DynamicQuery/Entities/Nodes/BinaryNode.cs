@@ -11,6 +11,8 @@ namespace Furysoft.DynamicQuery.Entities.Nodes
     /// </summary>
     public class BinaryNode : Node
     {
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
+
         /// <summary>Gets or sets the conjunctive.</summary>
         public Conjunctives Conjunctive { get; set; }
 

@@ -100,6 +100,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
         /// <summary>
         /// The Custom Entity
         /// </summary>
+        // ReSharper disable once ClassNeverInstantiated.Local
         private sealed class CustomEntity
         {
             /// <summary>Gets or sets the test key.</summary>

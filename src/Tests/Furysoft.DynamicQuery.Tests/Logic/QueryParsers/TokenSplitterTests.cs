@@ -7,7 +7,6 @@
 namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 {
     using System.Diagnostics;
-    using DynamicQuery.Logic.QueryParsers;
     using DynamicQuery.Logic.Splitters;
     using NUnit.Framework;
 

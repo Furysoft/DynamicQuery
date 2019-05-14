@@ -63,17 +63,31 @@ namespace Furysoft.DynamicQuery.Logic
         /// <summary>
         /// Parses the query.
         /// </summary>
-        /// <param name="query">The query.</param>
-        /// <returns>The <see cref="IQuery"/></returns>
-        public IQuery ParseQuery(string query)
+        /// <param name="queryString">The query string.</param>
+        /// <returns>
+        /// The <see cref="IQuery" />
+        /// </returns>
+        public IQuery ParseQuery(string queryString)
         {
-            var parts = this.tokenSplitter.SplitByToken(query);
+            var parts = this.tokenSplitter.SplitByToken(queryString);
 
-            var pageNode = this.pageParser.Parse(parts.Page);
-            var orderByNodes = this.orderByParser.ParseOrderBy(parts.OrderBy);
-            var whereNode = this.whereParser.ParseWhere(parts.Where);
+            var query = new Query(this.whereParser);
+            if (parts.Page != null)
+            {
+                query.PageNode = this.pageParser.Parse(parts.Page);
+            }
 
-            return new Query(orderByNodes, whereNode, pageNode);
+            if (parts.OrderBy != null)
+            {
+                query.OrderByNodes = this.orderByParser.ParseOrderBy(parts.OrderBy);
+            }
+
+            if (parts.Where != null)
+            {
+                query.WhereNode = this.whereParser.ParseWhere(parts.Where);
+            }
+
+            return query;
         }
     }
 }

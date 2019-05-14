@@ -18,11 +18,13 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
     /// <summary>
     /// The Order By Parser
     /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public sealed class OrderByParser<TEntity> : IOrderByParser
     {
         /// <summary>
         /// The regex query
         /// </summary>
+        // ReSharper disable once StaticMemberInGenericType
         private static readonly Regex RegexQuery = new Regex("(asc|desc)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         /// <summary>

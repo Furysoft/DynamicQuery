@@ -15,13 +15,25 @@ namespace Furysoft.DynamicQuery.Interfaces
     /// </summary>
     public interface IQuery
     {
-        /// <summary>Gets the order by node.</summary>
-        List<OrderByNode> OrderByNodes { get; }
+        /// <summary>Gets or sets the order by node.</summary>
+        List<OrderByNode> OrderByNodes { get; set; }
 
-        /// <summary>Gets the page node.</summary>
-        PageNode PageNode { get; }
+        /// <summary>Gets or sets the page node.</summary>
+        PageNode PageNode { get; set; }
 
-        /// <summary>Gets the where node.</summary>
-        Node WhereNode { get; }
+        /// <summary>Gets or sets the where node.</summary>
+        Node WhereNode { get; set; }
+
+        /// <summary>
+        /// Wheres this instance.
+        /// </summary>
+        /// <param name="whereClause">The where clause.</param>
+        void Where(string whereClause);
+
+        /// <summary>
+        /// Wheres the specified node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        void Where(Node node);
     }
 }

@@ -14,6 +14,11 @@ namespace Furysoft.DynamicQuery.Entities.Operations
     public sealed class EqualsOperator : UnaryNode
     {
         /// <summary>
+        /// Gets or sets a value indicating whether [case insensitive].
+        /// </summary>
+        public bool CaseInsensitive { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this instance is not.
         /// </summary>
         public bool IsNot { get; set; }

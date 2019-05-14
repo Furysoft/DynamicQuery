@@ -74,12 +74,13 @@ namespace Furysoft.DynamicQuery.Tests.EntityParser
         }
     }
 
+    // ReSharper disable UnusedMember.Global
 #pragma warning disable SA1402 // File may only contain a single class
-                              /// <summary>
-                              /// The Test Entity
-                              /// </summary>
+
+    /// <summary>
+    /// The Test Entity
+    /// </summary>
     public sealed class TestEntity
-#pragma warning restore SA1402 // File may only contain a single class
     {
         /// <summary>Gets or sets the property four.</summary>
         [DataMember(Name = "property_four")]
@@ -95,5 +96,8 @@ namespace Furysoft.DynamicQuery.Tests.EntityParser
         /// <summary>Gets or sets the property two.</summary>
         [Exclude]
         public string PropertyTwo { get; set; }
+
+        // ReSharper restore UnusedMember.Global
+#pragma warning restore SA1402 // File may only contain a single class
     }
 }

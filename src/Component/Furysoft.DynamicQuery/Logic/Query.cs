@@ -10,6 +10,7 @@ namespace Furysoft.DynamicQuery.Logic
     using Entities.Nodes;
     using Entities.QueryComponents;
     using Interfaces;
+    using Interfaces.QueryParsers;
 
     /// <summary>
     /// The Query
@@ -18,25 +19,59 @@ namespace Furysoft.DynamicQuery.Logic
     public sealed class Query : IQuery
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Query" /> class.
+        /// The where parser
         /// </summary>
-        /// <param name="orderByNodes">The order by nodes.</param>
-        /// <param name="node">The node.</param>
-        /// <param name="pageNode">The page node.</param>
-        public Query(List<OrderByNode> orderByNodes, Node node, PageNode pageNode)
+        private readonly IWhereParser whereParser;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Query"/> class.
+        /// </summary>
+        /// <param name="whereParser">The where parser.</param>
+        public Query(IWhereParser whereParser)
         {
-            this.OrderByNodes = orderByNodes;
-            this.PageNode = pageNode;
-            this.WhereNode = node;
+            this.whereParser = whereParser;
         }
 
-        /// <summary>Gets the order by node.</summary>
-        public List<OrderByNode> OrderByNodes { get; }
+        /// <summary>Gets or sets the order by node.</summary>
+        public List<OrderByNode> OrderByNodes { get; set; }
 
-        /// <summary>Gets the page node.</summary>
-        public PageNode PageNode { get; }
+        /// <summary>Gets or sets the page node.</summary>
+        public PageNode PageNode { get; set; }
 
-        /// <summary>Gets the where node.</summary>
-        public Node WhereNode { get; }
+        /// <summary>Gets or sets the where node.</summary>
+        public Node WhereNode { get; set; }
+
+        /// <inheritdoc />
+        public void Where(string whereClause)
+        {
+            var node = this.whereParser.ParseWhere(whereClause);
+
+            if (node == null)
+            {
+                return;
+            }
+
+            this.WhereNode = new BinaryNode
+            {
+                LeftNode = node,
+                RightNode = this.WhereNode,
+                Name = null,
+                Conjunctive = Conjunctives.And,
+                Statement = $"{node.Statement} and {this.WhereNode.Statement}"
+            };
+        }
+
+        /// <inheritdoc />
+        public void Where(Node node)
+        {
+            this.WhereNode = new BinaryNode
+            {
+                LeftNode = node,
+                RightNode = this.WhereNode,
+                Name = null,
+                Conjunctive = Conjunctives.And,
+                Statement = $"{node.Statement} and {this.WhereNode.Statement}"
+            };
+        }
     }
 }
