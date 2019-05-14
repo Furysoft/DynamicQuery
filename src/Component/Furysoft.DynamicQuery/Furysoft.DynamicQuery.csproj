@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Copyright>© 2017, Simon Paramore</Copyright>
-    <PackageLicenseUrl>https://github.com/Furysoft/DynamicQuery/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Furysoft/DynamicQuery</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Furysoft/DynamicQuery</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -14,6 +15,8 @@
     <Company>Furysoft</Company>
     <Description>Dynamic Query Generator</Description>
     <Version>1.0.4</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
   </PropertyGroup>
 
   <ItemGroup>
