@@ -8,9 +8,11 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 {
     using System.Diagnostics;
     using DynamicQuery.Logic.QueryParsers;
+    using Entities;
     using Entities.Operations;
     using Interfaces;
     using Interfaces.QueryParsers;
+    using Interfaces.Splitters;
     using Moq;
     using NUnit.Framework;
 
@@ -30,8 +32,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             var mockRangeParser = new Mock<IWhereStatementParser>();
             var mockEqualsParser = new Mock<IWhereStatementParser>();
             var mockEntityParser = new Mock<IEntityParser<string>>();
+            var mockTypeSplitter = new Mock<ISplitter<TypeSplitterResponse>>();
 
-            mockEqualsParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new EqualsOperator
+            mockEqualsParser.Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>())).Returns(new EqualsOperator
             {
                 Name = null,
                 IsNot = false,
@@ -40,10 +43,14 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 
             mockEntityParser.Setup(r => r.IsPermitted(It.IsAny<string>())).Returns(true);
 
+            mockTypeSplitter.Setup(r => r.SplitByToken(It.IsAny<string>())).Returns(
+                (string s) => new TypeSplitterResponse {Type = null, HasType = false, Data = s});
+
             var whereStatementParser = new WhereStatementParser<string>(
                 mockRangeParser.Object,
                 mockEqualsParser.Object,
-                mockEntityParser.Object);
+                mockEntityParser.Object,
+                mockTypeSplitter.Object);
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -74,8 +81,9 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             var mockRangeParser = new Mock<IWhereStatementParser>();
             var mockEqualsParser = new Mock<IWhereStatementParser>();
             var mockEntityParser = new Mock<IEntityParser<string>>();
+            var mockTypeSplitter = new Mock<ISplitter<TypeSplitterResponse>>();
 
-            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new RangeOperator
+            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>())).Returns(new RangeOperator
             {
                 Name = null,
                 LowerInclusive = false,
@@ -86,10 +94,14 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
 
             mockEntityParser.Setup(r => r.IsPermitted(It.IsAny<string>())).Returns(true);
 
+            mockTypeSplitter.Setup(r => r.SplitByToken(It.IsAny<string>())).Returns(
+                (string s) => new TypeSplitterResponse { Type = null, HasType = false, Data = s });
+
             var whereStatementParser = new WhereStatementParser<string>(
                 mockRangeParser.Object,
                 mockEqualsParser.Object,
-                mockEntityParser.Object);
+                mockEntityParser.Object,
+                mockTypeSplitter.Object);
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -123,8 +135,12 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             var mockRangeParser = new Mock<IWhereStatementParser>();
             var mockEqualsParser = new Mock<IWhereStatementParser>();
             var mockEntityParser = new Mock<IEntityParser<string>>();
+            var mockTypeSplitter = new Mock<ISplitter<TypeSplitterResponse>>();
 
-            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>())).Returns(new RangeOperator
+            mockTypeSplitter.Setup(r => r.SplitByToken(It.IsAny<string>())).Returns(
+                (string s) => new TypeSplitterResponse { Type = null, HasType = false, Data = s });
+
+            mockRangeParser.Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>())).Returns(new RangeOperator
             {
                 Name = null,
                 LowerInclusive = false,
@@ -138,7 +154,8 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             var whereStatementParser = new WhereStatementParser<string>(
                 mockRangeParser.Object,
                 mockEqualsParser.Object,
-                mockEntityParser.Object);
+                mockEntityParser.Object,
+                mockTypeSplitter.Object);
 
             // Act
             var stopwatch = Stopwatch.StartNew();

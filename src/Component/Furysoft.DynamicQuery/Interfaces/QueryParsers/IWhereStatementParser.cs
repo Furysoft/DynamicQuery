@@ -17,7 +17,10 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// Parses the statement.
         /// </summary>
         /// <param name="statement">The statement.</param>
-        /// <returns>The <see cref="UnaryNode"/></returns>
-        UnaryNode ParseStatement(string statement);
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// The <see cref="UnaryNode" />
+        /// </returns>
+        UnaryNode ParseStatement(string statement, string type = null);
     }
 }

@@ -6,6 +6,7 @@
 
 namespace Furysoft.DynamicQuery.Logic
 {
+    using Entities;
     using Interfaces;
     using Interfaces.QueryParsers;
     using Interfaces.Splitters;
@@ -33,7 +34,7 @@ namespace Furysoft.DynamicQuery.Logic
         /// The token splitter
         /// </summary>
         [NotNull]
-        private readonly ITokenSplitter tokenSplitter;
+        private readonly ISplitter<TokenSplitterResponse> tokenSplitter;
 
         /// <summary>
         /// The where parser
@@ -49,7 +50,7 @@ namespace Furysoft.DynamicQuery.Logic
         /// <param name="pageParser">The page parser.</param>
         /// <param name="orderByParser">The order by parser.</param>
         public StatementParser(
-            [NotNull] ITokenSplitter tokenSplitter,
+            [NotNull] ISplitter<TokenSplitterResponse> tokenSplitter,
             [NotNull] IWhereParser whereParser,
             [NotNull] IPageParser pageParser,
             [NotNull] IOrderByParser orderByParser)

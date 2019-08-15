@@ -6,6 +6,7 @@
 
 namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
 {
+    using System;
     using System.Diagnostics;
     using DynamicQuery.Logic.QueryParsers.WhereParsers;
     using Entities.Operations;
@@ -17,6 +18,130 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers.WhereParsers
     [TestFixture]
     public class RangeParserTests : TestBase
     {
+        /// <summary>
+        /// Parses the statement when date time expect date time parsed.
+        /// </summary>
+        [Test]
+        public void ParseStatement_WhenGreatThanDateTime_ExpectDateTimeParsed()
+        {
+            // Arrange
+            var rangeParser = new RangeParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var unaryNode = rangeParser.ParseStatement("{2018-1-2T10:11:12,*}");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(unaryNode, Is.Not.Null);
+
+            Assert.That(unaryNode, Is.TypeOf(typeof(GreaterThanOperator)));
+
+            var rangeNode = (GreaterThanOperator)unaryNode;
+
+            Assert.That(rangeNode.Name, Is.Null);
+
+            Assert.That(rangeNode.Name, Is.Null);
+            Assert.That(rangeNode.Value, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 12)));
+            Assert.That(rangeNode.Inclusive, Is.True);
+        }
+
+        /// <summary>
+        /// Parses the statement when less than date time expect date time parsed.
+        /// </summary>
+        [Test]
+        public void ParseStatement_WhenLessThanDateTime_ExpectDateTimeParsed()
+        {
+            // Arrange
+            var rangeParser = new RangeParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var unaryNode = rangeParser.ParseStatement("{*,2018-1-2T10:11:12}");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(unaryNode, Is.Not.Null);
+
+            Assert.That(unaryNode, Is.TypeOf(typeof(LessThanOperator)));
+
+            var rangeNode = (LessThanOperator)unaryNode;
+
+            Assert.That(rangeNode.Name, Is.Null);
+
+            Assert.That(rangeNode.Name, Is.Null);
+            Assert.That(rangeNode.Value, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 12)));
+            Assert.That(rangeNode.Inclusive, Is.True);
+        }
+
+        /// <summary>
+        /// Parses the statement when between date time expect date time parsed.
+        /// </summary>
+        [Test]
+        public void ParseStatement_WhenBetweenDateTime_ExpectDateTimeParsed()
+        {
+            // Arrange
+            var rangeParser = new RangeParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var unaryNode = rangeParser.ParseStatement("{2018-1-2T10:11:11,2018-1-2T10:11:13}");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(unaryNode, Is.Not.Null);
+
+            Assert.That(unaryNode, Is.TypeOf(typeof(RangeOperator)));
+
+            var rangeNode = (RangeOperator)unaryNode;
+
+            Assert.That(rangeNode.Name, Is.Null);
+
+            Assert.That(rangeNode.Name, Is.Null);
+            Assert.That(rangeNode.Lower, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 11)));
+            Assert.That(rangeNode.Upper, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 13)));
+            Assert.That(rangeNode.LowerInclusive, Is.True);
+            Assert.That(rangeNode.UpperInclusive, Is.True);
+        }
+
+        /// <summary>
+        /// Parses the statement when between date time quoted expect date time parsed.
+        /// </summary>
+        [Test]
+        public void ParseStatement_WhenBetweenDateTimeQuoted_ExpectDateTimeParsed()
+        {
+            // Arrange
+            var rangeParser = new RangeParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var unaryNode = rangeParser.ParseStatement("{\"2018-1-2T10:11:11\",\"2018-1-2T10:11:13\"}");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(unaryNode, Is.Not.Null);
+
+            Assert.That(unaryNode, Is.TypeOf(typeof(RangeOperator)));
+
+            var rangeNode = (RangeOperator)unaryNode;
+
+            Assert.That(rangeNode.Name, Is.Null);
+
+            Assert.That(rangeNode.Name, Is.Null);
+            Assert.That(rangeNode.Lower, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 11)));
+            Assert.That(rangeNode.Upper, Is.EqualTo(new DateTime(2018, 1, 2, 10, 11, 13)));
+            Assert.That(rangeNode.LowerInclusive, Is.True);
+            Assert.That(rangeNode.UpperInclusive, Is.True);
+        }
+
         /// <summary>
         /// Parses the statement when inclusive range expect correct range node.
         /// </summary>

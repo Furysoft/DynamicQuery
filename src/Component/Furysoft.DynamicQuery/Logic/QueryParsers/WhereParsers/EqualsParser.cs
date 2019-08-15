@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
 {
-    using System;
     using System.Linq;
     using Entities.Nodes;
     using Entities.Operations;
+    using Helpers;
     using Interfaces.QueryParsers;
 
     /// <summary>
@@ -21,10 +21,13 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
         /// Parses the statement.
         /// </summary>
         /// <param name="statement">The statement.</param>
-        /// <returns>The <see cref="UnaryNode"/></returns>
-        public UnaryNode ParseStatement(string statement)
+        /// <param name="type">The type.</param>
+        /// <returns>
+        /// The <see cref="UnaryNode" />
+        /// </returns>
+        public UnaryNode ParseStatement(string statement, string type = null)
         {
-            var cleanedStatement = statement;
+            var cleanedStatement = statement.Trim('"');
 
             var isNot = false;
             if (cleanedStatement.First() == '!')
@@ -33,37 +36,12 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 cleanedStatement = cleanedStatement.Substring(1);
             }
 
-            // If it's a number
-            if (int.TryParse(cleanedStatement, out var intValue))
-            {
-                return new EqualsOperator
-                {
-                    Name = null,
-                    Value = intValue,
-                    IsNot = isNot,
-                    Statement = statement
-                };
-            }
-
-            // If it's a datetime
-            if (DateTime.TryParse(cleanedStatement, out var dateTimeValue))
-            {
-                return new EqualsOperator
-                {
-                    Name = null,
-                    Value = dateTimeValue,
-                    IsNot = isNot,
-                    Statement = statement
-                };
-            }
-
-            // Trim after, if " are present, the entity is treated as a string
-            cleanedStatement = cleanedStatement.Trim('"');
+            var value = ParserHelpers.Parse(cleanedStatement, type);
 
             return new EqualsOperator
             {
                 Name = null,
-                Value = cleanedStatement,
+                Value = value,
                 IsNot = isNot,
                 Statement = statement
             };

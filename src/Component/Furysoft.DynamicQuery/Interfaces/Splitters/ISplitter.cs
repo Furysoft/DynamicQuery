@@ -6,18 +6,19 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.Splitters
 {
-    using Entities;
-
     /// <summary>
-    /// The Token Splitter Interface
+    /// The Splitter Interface
     /// </summary>
-    public interface ITokenSplitter
+    /// <typeparam name="TResponse">The type of the response.</typeparam>
+    public interface ISplitter<out TResponse>
     {
         /// <summary>
         /// Splits a provided query statement based on key operators
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>The list of string</returns>
-        TokenSplitterResponse SplitByToken(string query);
+        /// <returns>
+        /// The list of string
+        /// </returns>
+        TResponse SplitByToken(string query);
     }
 }

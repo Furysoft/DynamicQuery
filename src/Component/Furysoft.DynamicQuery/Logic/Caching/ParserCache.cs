@@ -8,6 +8,7 @@ namespace Furysoft.DynamicQuery.Logic.Caching
 {
     using System;
     using System.Collections.Concurrent;
+    using Entities;
     using Interfaces;
     using Interfaces.Caching;
     using Parsers;
@@ -44,8 +45,9 @@ namespace Furysoft.DynamicQuery.Logic.Caching
             var equalsParser = new EqualsParser();
 
             var entityParser = new EntityParser<TEntity>();
+            var typeSplitter = new TypeSplitter();
 
-            var whereStatementParser = new WhereStatementParser<TEntity>(rangeParser, equalsParser, entityParser);
+            var whereStatementParser = new WhereStatementParser<TEntity>(rangeParser, equalsParser, entityParser, typeSplitter);
             var whereParser = new WhereParser(whereStatementParser);
             var orderByParser = new OrderByParser<TEntity>(entityParser);
             var pageParser = new PageParser();

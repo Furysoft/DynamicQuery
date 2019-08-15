@@ -10,6 +10,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
     using System.Linq;
     using Entities.Nodes;
     using Entities.Operations;
+    using Helpers;
     using Interfaces.QueryParsers;
 
     /// <summary>
@@ -18,12 +19,8 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
     /// <seealso cref="IWhereStatementParser" />
     public sealed class RangeParser : IWhereStatementParser
     {
-        /// <summary>
-        /// Parses the statement.
-        /// </summary>
-        /// <param name="statement">The statement.</param>
-        /// <returns>The <see cref="UnaryNode"/></returns>
-        public UnaryNode ParseStatement(string statement)
+        /// <inheritdoc />
+        public UnaryNode ParseStatement(string statement, string type = null)
         {
             var first = statement.First();
             var last = statement.Last();
@@ -60,9 +57,10 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 .Select(s => s.Trim())
                 .ToList();
 
+            // If the first part is a wildcard, determine the last part only
             if (parts[0] == "*")
             {
-                int.TryParse(parts[1], out var lowerVal);
+                var lowerVal = ParserHelpers.Parse(parts[1], type);
 
                 return new LessThanOperator
                 {
@@ -73,9 +71,10 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 };
             }
 
+            // If the last part is a wildcard, determine the first part only
             if (parts[1] == "*")
             {
-                int.TryParse(parts[0], out var upperVal);
+                var upperVal = ParserHelpers.Parse(parts[0], type);
 
                 return new GreaterThanOperator
                 {
@@ -86,8 +85,8 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 };
             }
 
-            int.TryParse(parts[0], out var lower);
-            int.TryParse(parts[1], out var upper);
+            var lower = ParserHelpers.Parse(parts[0], type);
+            var upper = ParserHelpers.Parse(parts[1], type);
 
             return new RangeOperator
             {

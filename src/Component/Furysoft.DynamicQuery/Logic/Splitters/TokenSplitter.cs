@@ -12,7 +12,7 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
     using Interfaces.Splitters;
 
     /// <inheritdoc />
-    public sealed class TokenSplitter : ITokenSplitter
+    public sealed class TokenSplitter : ISplitter<TokenSplitterResponse>
     {
         /// <summary>
         /// The regex

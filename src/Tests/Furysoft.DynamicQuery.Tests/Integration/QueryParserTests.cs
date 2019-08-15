@@ -6,6 +6,7 @@
 
 namespace Furysoft.DynamicQuery.Tests.Integration
 {
+    using System;
     using System.Diagnostics;
     using DynamicQuery.Logic.OperatorFactories;
     using Entities.Nodes;
@@ -41,6 +42,31 @@ namespace Furysoft.DynamicQuery.Tests.Integration
 
             // Assert
             this.WriteTimeElapsed(stopwatch);
+        }
+
+        /// <summary>
+        /// Parses the when query with date passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenQueryWithDatePassedIn_ExpectParsedCorrectly()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("where::Name:[2018-01-01,*] as datetime orderby::age asc page::1,10");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            var queryWhereNode = query.WhereNode as GreaterThanOperator;
+
+            Assert.That(queryWhereNode, Is.Not.Null);
+
+            Assert.That(queryWhereNode.Inclusive, Is.False);
+            Assert.That(queryWhereNode.Value, Is.EqualTo(new DateTime(2018, 1, 1)));
         }
 
         /// <summary>
