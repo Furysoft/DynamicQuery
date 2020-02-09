@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ParserHelpers.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="ParserHelpers.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -9,7 +9,7 @@ namespace Furysoft.DynamicQuery.Logic.Helpers
     using System;
 
     /// <summary>
-    /// The Parser Helpers
+    /// The Parser Helpers.
     /// </summary>
     public static class ParserHelpers
     {
@@ -19,7 +19,7 @@ namespace Furysoft.DynamicQuery.Logic.Helpers
         /// <param name="source">The source.</param>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// The Object
+        /// The Object.
         /// </returns>
         public static object Parse(string source, string type = null)
         {
@@ -29,7 +29,6 @@ namespace Furysoft.DynamicQuery.Logic.Helpers
             {
                 return TypeParser.Parse(cleaned, type);
             }
-
 
             if (int.TryParse(cleaned, out var intType))
             {

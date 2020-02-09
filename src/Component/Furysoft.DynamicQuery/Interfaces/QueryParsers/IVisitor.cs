@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
     /// <summary>
-    /// The Visitor
+    /// The Visitor.
     /// </summary>
     public interface IVisitor
     {

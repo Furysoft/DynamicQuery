@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="InvalidTypeException.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="InvalidTypeException.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ namespace Furysoft.DynamicQuery.Exceptions
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The Invalid Type Exception
+    /// The Invalid Type Exception.
     /// </summary>
     /// <seealso cref="DynamicQueryException" />
     [Serializable]

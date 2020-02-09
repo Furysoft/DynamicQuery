@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Entities.Operations
 {
-    using Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Less Than Operator
+    /// The Less Than Operator.
     /// </summary>
     /// <seealso cref="UnaryNode" />
     public sealed class LessThanOperator : UnaryNode

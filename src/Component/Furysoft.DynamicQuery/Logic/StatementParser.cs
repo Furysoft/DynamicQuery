@@ -6,38 +6,38 @@
 
 namespace Furysoft.DynamicQuery.Logic
 {
-    using Entities;
-    using Interfaces;
-    using Interfaces.QueryParsers;
-    using Interfaces.Splitters;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Interfaces;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Interfaces.Splitters;
     using JetBrains.Annotations;
 
     /// <summary>
-    /// The Statement Parser
+    /// The Statement Parser.
     /// </summary>
     /// <seealso cref="IStatementParser" />
     public sealed class StatementParser : IStatementParser
     {
         /// <summary>
-        /// The order by parser
+        /// The order by parser.
         /// </summary>
         [NotNull]
         private readonly IOrderByParser orderByParser;
 
         /// <summary>
-        /// The page parser
+        /// The page parser.
         /// </summary>
         [NotNull]
         private readonly IPageParser pageParser;
 
         /// <summary>
-        /// The token splitter
+        /// The token splitter.
         /// </summary>
         [NotNull]
         private readonly ISplitter<TokenSplitterResponse> tokenSplitter;
 
         /// <summary>
-        /// The where parser
+        /// The where parser.
         /// </summary>
         [NotNull]
         private readonly IWhereParser whereParser;
@@ -66,7 +66,7 @@ namespace Furysoft.DynamicQuery.Logic
         /// </summary>
         /// <param name="queryString">The query string.</param>
         /// <returns>
-        /// The <see cref="IQuery" />
+        /// The <see cref="IQuery" />.
         /// </returns>
         public IQuery ParseQuery(string queryString)
         {

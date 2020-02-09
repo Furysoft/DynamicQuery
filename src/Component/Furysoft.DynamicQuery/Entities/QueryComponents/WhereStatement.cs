@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PageNode.cs" company="Simon Paramore">
+// <copyright file="WhereStatement.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -9,18 +9,14 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents
     using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Page Node.
+    /// The Where Statement.
     /// </summary>
-    public sealed class PageNode : UnaryNode
+    public sealed class WhereStatement
     {
-        /// <summary>
-        /// Gets or sets the items per page.
-        /// </summary>
-        public int ItemsPerPage { get; set; }
+        /// <summary>Gets or sets the value.</summary>
+        public Node Value { get; set; }
 
-        /// <summary>
-        /// Gets or sets the page.
-        /// </summary>
-        public int Page { get; set; }
+        /// <summary>Gets or sets as.</summary>
+        public string As { get; set; }
     }
 }

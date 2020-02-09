@@ -1,24 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SortOrder.cs" company="Simon Paramore">
+// <copyright file="IQuery{TType}.cs" company="Simon Paramore">
 // © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Furysoft.DynamicQuery.Entities
+namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
-    /// The Sort Order.
+    /// The Query Interface.
     /// </summary>
-    public enum SortOrder
+    /// <typeparam name="TType">The type of the type.</typeparam>
+    public interface IQuery<TType> : IQuery
     {
-        /// <summary>
-        /// The asc
-        /// </summary>
-        Asc,
-
-        /// <summary>
-        /// The desc
-        /// </summary>
-        Desc,
     }
 }

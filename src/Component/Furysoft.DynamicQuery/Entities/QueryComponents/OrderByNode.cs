@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Entities.QueryComponents
 {
-    using Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Order By Node
+    /// The Order By Node.
     /// </summary>
     public sealed class OrderByNode : UnaryNode
     {

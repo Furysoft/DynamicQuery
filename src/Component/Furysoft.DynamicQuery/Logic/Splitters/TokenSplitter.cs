@@ -8,16 +8,16 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
 {
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Entities;
-    using Interfaces.Splitters;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Interfaces.Splitters;
 
     /// <inheritdoc />
     public sealed class TokenSplitter : ISplitter<TokenSplitterResponse>
     {
         /// <summary>
-        /// The regex
+        /// The regex.
         /// </summary>
-        private static readonly Regex RegexQuery = new Regex("(where::|orderby::|page::)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private static readonly Regex RegexQuery = new Regex("(select::|where::|orderby::|page::)", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
         /// <inheritdoc />
         public TokenSplitterResponse SplitByToken(string query)
@@ -54,6 +54,9 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
                     return;
                 case "page::":
                     response.Page = Regex.Unescape(data).Trim();
+                    return;
+                case "select::":
+                    response.Select = Regex.Unescape(data).Trim();
                     return;
             }
         }

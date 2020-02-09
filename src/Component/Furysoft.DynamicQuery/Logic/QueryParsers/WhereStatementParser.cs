@@ -7,41 +7,39 @@
 namespace Furysoft.DynamicQuery.Logic.QueryParsers
 {
     using System.Linq;
-    using Entities;
-    using Entities.Nodes;
-    using Interfaces;
-    using Interfaces.QueryParsers;
-    using Interfaces.Splitters;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Interfaces;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Interfaces.Splitters;
     using JetBrains.Annotations;
-    using Newtonsoft.Json.Converters;
-    using Splitters;
 
     /// <summary>
-    /// The Where Statement Parser
+    /// The Where Statement Parser.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public sealed class WhereStatementParser<TEntity> : IWhereStatementParser
     {
         /// <summary>
-        /// The equals parser
+        /// The equals parser.
         /// </summary>
         [NotNull]
         private readonly IWhereStatementParser equalsParser;
 
         /// <summary>
-        /// The range parser
+        /// The range parser.
         /// </summary>
         [NotNull]
         private readonly IWhereStatementParser rangeParser;
 
         /// <summary>
-        /// The entity parser
+        /// The entity parser.
         /// </summary>
         [NotNull]
         private readonly IEntityParser<TEntity> entityParser;
 
         /// <summary>
-        /// The type splitter
+        /// The type splitter.
         /// </summary>
         [NotNull]
         private readonly ISplitter<TypeSplitterResponse> typeSplitter;
@@ -71,7 +69,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// <param name="statement">The statement.</param>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// The <see cref="UnaryNode" />
+        /// The <see cref="UnaryNode" />.
         /// </returns>
         public UnaryNode ParseStatement(string statement, string type = null)
         {
@@ -95,6 +93,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
             {
                 var rtn = this.rangeParser.ParseStatement(split.Data, split.Type);
                 rtn.Name = propertyName;
+                rtn.Statement = statement;
                 return rtn;
             }
 

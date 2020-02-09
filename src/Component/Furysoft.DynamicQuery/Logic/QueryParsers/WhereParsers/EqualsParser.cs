@@ -7,13 +7,13 @@
 namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
 {
     using System.Linq;
-    using Entities.Nodes;
-    using Entities.Operations;
-    using Helpers;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.Operations;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Logic.Helpers;
 
     /// <summary>
-    /// The Equals Parser
+    /// The Equals Parser.
     /// </summary>
     public sealed class EqualsParser : IWhereStatementParser
     {
@@ -23,7 +23,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
         /// <param name="statement">The statement.</param>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// The <see cref="UnaryNode" />
+        /// The <see cref="UnaryNode" />.
         /// </returns>
         public UnaryNode ParseStatement(string statement, string type = null)
         {
@@ -43,7 +43,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 Name = null,
                 Value = value,
                 IsNot = isNot,
-                Statement = statement
+                Statement = statement,
             };
         }
     }

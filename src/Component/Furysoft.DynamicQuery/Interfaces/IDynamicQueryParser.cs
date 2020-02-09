@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
-    /// The Query Parser Interface
+    /// The Query Parser Interface.
     /// </summary>
     public interface IDynamicQueryParser
     {
@@ -17,7 +17,7 @@ namespace Furysoft.DynamicQuery.Interfaces
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         /// <param name="query">The query.</param>
         /// <returns>
-        /// The Query Interface
+        /// The Query Interface.
         /// </returns>
         IQuery Parse<TEntity>(string query);
     }

@@ -33,8 +33,8 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             // Assert
             this.WriteTimeElapsed(stopwatch);
 
-            Assert.That(pageNode.Page, Is.EqualTo(1));
-            Assert.That(pageNode.ItemsPerPage, Is.EqualTo(25));
+            Assert.That(pageNode?.Page, Is.EqualTo(1));
+            Assert.That(pageNode?.ItemsPerPage, Is.EqualTo(25));
         }
     }
 }

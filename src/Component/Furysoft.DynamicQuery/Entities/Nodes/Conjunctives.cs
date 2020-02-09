@@ -8,10 +8,15 @@
 namespace Furysoft.DynamicQuery.Entities.Nodes
 {
     /// <summary>
-    /// The Conjunctives
+    /// The Conjunctives.
     /// </summary>
     public enum Conjunctives
     {
+        /// <summary>
+        /// The none
+        /// </summary>
+        None,
+
         /// <summary>
         /// The and
         /// </summary>
@@ -20,6 +25,6 @@ namespace Furysoft.DynamicQuery.Entities.Nodes
         /// <summary>
         /// The or
         /// </summary>
-        Or
+        Or,
     }
 }

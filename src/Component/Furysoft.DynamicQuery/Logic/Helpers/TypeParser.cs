@@ -1,17 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TypeParser.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="TypeParser.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Furysoft.DynamicQuery.Logic.Helpers
 {
     using System;
-    using Entities;
-    using Exceptions;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Exceptions;
 
     /// <summary>
-    /// The Type Parser
+    /// The Type Parser.
     /// </summary>
     public static class TypeParser
     {
@@ -20,7 +20,7 @@ namespace Furysoft.DynamicQuery.Logic.Helpers
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="type">The type.</param>
-        /// <returns>The parsed object</returns>
+        /// <returns>The parsed object.</returns>
         public static object Parse(string value, string type)
         {
             if (type == Types.String)

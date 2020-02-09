@@ -9,7 +9,7 @@ namespace Furysoft.DynamicQuery.Attributes
     using System;
 
     /// <summary>
-    /// The Exclude Attribute
+    /// The Exclude Attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ExcludeAttribute : Attribute

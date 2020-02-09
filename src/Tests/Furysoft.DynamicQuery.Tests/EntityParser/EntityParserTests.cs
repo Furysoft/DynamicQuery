@@ -6,11 +6,14 @@
 
 namespace Furysoft.DynamicQuery.Tests.EntityParser
 {
-    using System.Diagnostics;
-    using System.Runtime.Serialization;
     using Attributes;
+    using Furysoft.DynamicQuery.Entities.Parsers;
     using NUnit.Framework;
     using Parsers;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Runtime.Serialization;
+    using DeepEqual.Syntax;
 
     /// <summary>
     /// The Entity Parser Tests
@@ -37,12 +40,14 @@ namespace Furysoft.DynamicQuery.Tests.EntityParser
 
             Assert.That(permittedProperties, Is.Not.Null);
 
-            Assert.That(permittedProperties.Count, Is.EqualTo(3));
+            var expected = new List<EntityProperty>
+            {
+                new EntityProperty { InternalName = "PropertyFour", QueryName = "property_four", IsPermitted = true },
+                new EntityProperty { InternalName = "PropertyOne", QueryName = "PropertyOne", IsPermitted = true },
+                new EntityProperty { InternalName = "PropertyThree", QueryName = "property_three", IsPermitted = true }
+            };
 
-            Assert.That(permittedProperties.Contains("PropertyOne"), Is.True);
-            Assert.That(permittedProperties.Contains("property_three"), Is.True);
-            Assert.That(permittedProperties.Contains("property_four"), Is.True);
-            Assert.That(permittedProperties.Contains("PropertyTwo"), Is.False);
+            permittedProperties.ShouldDeepEqual(expected);
         }
 
         /// <summary>
@@ -52,11 +57,12 @@ namespace Furysoft.DynamicQuery.Tests.EntityParser
         /// <returns>
         ///   <c>true</c> if [is permitted when name provided expect correct value] [the specified value]; otherwise, <c>false</c>.
         /// </returns>
-        [TestCase("PropertyOne", ExpectedResult = true)]
-        [TestCase("PropertyTwo", ExpectedResult = false)]
-        [TestCase("PropertyThree", ExpectedResult = false)]
-        [TestCase("property_three", ExpectedResult = true)]
-        [TestCase("property_four", ExpectedResult = true)]
+        [Test]
+        [TestCase("PropertyOne", ExpectedResult = true, Description = "PropertyOne should be isPermitted")]
+        [TestCase("PropertyTwo", ExpectedResult = false, Description = "PropertyTwo should NOT be isPermitted")]
+        [TestCase("PropertyThree", ExpectedResult = true, Description = "PropertyThree should be isPermitted")]
+        [TestCase("property_three", ExpectedResult = true, Description = "property_three should be isPermitted")]
+        [TestCase("property_four", ExpectedResult = true, Description = "property_four should be isPermitted")]
         public bool IsPermitted_WhenNameProvided_ExpectCorrectValue(string value)
         {
             // Arrange

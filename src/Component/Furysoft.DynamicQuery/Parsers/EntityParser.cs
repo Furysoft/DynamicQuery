@@ -8,14 +8,21 @@ namespace Furysoft.DynamicQuery.Parsers
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
-    using Attributes;
-    using Interfaces;
+    using Furysoft.DynamicQuery.Attributes;
+    using Furysoft.DynamicQuery.Entities.Parsers;
+    using Furysoft.DynamicQuery.Interfaces;
 
     /// <inheritdoc />
     public sealed class EntityParser<TEntity> : IEntityParser<TEntity>
     {
+        /// <summary>
+        /// The permitted properties.
+        /// </summary>
+        private List<EntityProperty> permittedProperties;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityParser{TEntity}"/> class.
         /// </summary>
@@ -27,7 +34,12 @@ namespace Furysoft.DynamicQuery.Parsers
         /// <summary>
         /// Gets the permitted properties.
         /// </summary>
-        public List<string> PermittedProperties { get; }
+        public List<EntityProperty> PermittedProperties
+        {
+            get => this.permittedProperties.Where(r => r.IsPermitted).ToList();
+
+            private set => this.permittedProperties = value;
+        }
 
         /// <summary>
         /// Determines whether the specified name is permitted.
@@ -38,40 +50,45 @@ namespace Furysoft.DynamicQuery.Parsers
         /// </returns>
         public bool IsPermitted(string name)
         {
-            return this.PermittedProperties.Contains(name);
+            return this.PermittedProperties.Any(r => r.IsPermitted && (r.InternalName == name || r.QueryName == name));
         }
 
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        /// <returns>The list of property names</returns>
-        private List<string> GetProperties()
+        /// <returns>The list of property names.</returns>
+        private List<EntityProperty> GetProperties()
         {
             var publicProperties = typeof(TEntity).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-            var rtn = new List<string>();
+            var rtn = new List<EntityProperty>();
             foreach (var propertyInfo in publicProperties)
             {
-                if (Attribute.IsDefined(propertyInfo, typeof(ExcludeAttribute)))
-                {
-                    continue;
-                }
+                var propertyName = propertyInfo.Name;
+                var customName = propertyName;
 
-                var customName = propertyInfo.GetCustomAttribute<NameAttribute>(false);
-                if (customName != null)
+                var nameAttributeName = propertyInfo.GetCustomAttribute<NameAttribute>(false);
+                if (nameAttributeName != null)
                 {
-                    rtn.Add(customName.Name);
-                    continue;
+                    customName = nameAttributeName.Name;
                 }
 
                 var dataMemberName = propertyInfo.GetCustomAttribute<DataMemberAttribute>(false);
                 if (dataMemberName != null)
                 {
-                    rtn.Add(dataMemberName.Name);
-                    continue;
+                    customName = dataMemberName.Name;
                 }
 
-                rtn.Add(propertyInfo.Name);
+                var isExcluded = Attribute.IsDefined(propertyInfo, typeof(ExcludeAttribute));
+
+                var property = new EntityProperty
+                {
+                    InternalName = propertyName,
+                    QueryName = customName,
+                    IsPermitted = !isExcluded,
+                };
+
+                rtn.Add(property);
             }
 
             return rtn;

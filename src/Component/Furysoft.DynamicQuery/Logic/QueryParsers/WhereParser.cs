@@ -6,24 +6,24 @@
 
 namespace Furysoft.DynamicQuery.Logic.QueryParsers
 {
-    using System;
-    using System.Linq;
+    using System.Collections.Generic;
+    using System.Text;
     using System.Text.RegularExpressions;
-    using Entities.Nodes;
-    using Entities.QueryComponents;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
     using JetBrains.Annotations;
 
     /// <summary>
-    /// The Where Parser
+    /// The Where Parser.
     /// </summary>
     internal sealed class WhereParser : IWhereParser
     {
-        /// <summary>The regex test</summary>
+        /// <summary>The regex test.</summary>
         private static readonly Regex RegexTest = new Regex("(and|or)");
 
         /// <summary>
-        /// The where statement parser
+        /// The where statement parser.
         /// </summary>
         [NotNull]
         private readonly IWhereStatementParser whereStatementParser;
@@ -41,40 +41,97 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// Parses the where.
         /// </summary>
         /// <param name="where">The where.</param>
-        /// <returns>The <see cref="WhereNode"/></returns>1
-        public Node ParseWhere(string where)
+        /// <returns>The <see cref="WhereNode"/>.</returns>1
+        public WhereNode ParseWhere(string where)
         {
-            return this.ParseLocal(where);
+            if (string.IsNullOrWhiteSpace(where))
+            {
+                return null;
+            }
+
+            var whereParts = new List<string>();
+            var sb = new StringBuilder();
+            var isQuoted = false;
+            foreach (var character in where)
+            {
+                if (!isQuoted && character.Equals('"'))
+                {
+                    isQuoted = true;
+                    continue;
+                }
+
+                if (isQuoted && character.Equals('"'))
+                {
+                    isQuoted = false;
+                    continue;
+                }
+
+                if (!isQuoted && character.Equals(' '))
+                {
+                    whereParts.Add(sb.ToString());
+                    sb = new StringBuilder();
+                    continue;
+                }
+
+                sb.Append(character);
+            }
+
+            whereParts.Add(sb.ToString());
+
+            var node = this.ParseStatements(new WhereNode(), whereParts, 0);
+
+            return node;
         }
 
         /// <summary>
         /// Parses the local.
         /// </summary>
-        /// <param name="where">The where.</param>
-        /// <returns>The <see cref="WhereNode"/></returns>
-        private Node ParseLocal(string where)
+        /// <param name="parts">The parts.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The data.</returns>
+        private (int index, WhereStatement where) ParseLocal(List<string> parts, int index)
         {
-            var strings = RegexTest.Split(where, 2).ToList();
-
-            // If there's only 1, we're done. No need to parse more!
-            if (strings.Count == 1)
+            if (parts.Count > index + 1 && parts[index + 1] == "as")
             {
-                return this.whereStatementParser.ParseStatement(strings[0]);
+                var asString = parts[index + 2];
+                var whereNode = this.whereStatementParser.ParseStatement(parts[index], asString);
+                return (index + 3, new WhereStatement { As = asString, Value = whereNode });
             }
 
-            Enum.TryParse(strings[1], out Conjunctives conjunctive);
+            var where = this.whereStatementParser.ParseStatement(parts[index]);
+            return (index + 1, new WhereStatement { Value = where, As = null });
+        }
 
-            var leftNode = this.ParseLocal(strings[0]);
-            var rightNode = this.ParseLocal(strings[2]);
-
-            return new BinaryNode
+        /// <summary>
+        /// Parses the statements.
+        /// </summary>
+        /// <param name="last">The last.</param>
+        /// <param name="statements">The statements.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="WhereNode"/>.</returns>
+        private WhereNode ParseStatements(WhereNode last, List<string> statements, int index)
+        {
+            var whereStatement = this.ParseLocal(statements, index);
+            index = whereStatement.index;
+            if (index == statements.Count)
             {
-                LeftNode = leftNode,
-                Conjunctive = conjunctive,
-                RightNode = rightNode,
-                Name = null,
-                Statement = where
-            };
+                return new WhereNode { Conjunctive = Conjunctives.None, Next = null, Statement = whereStatement.where };
+            }
+
+            if (statements[index] == "and")
+            {
+                last.Conjunctive = Conjunctives.And;
+            }
+
+            if (statements[index] == "or")
+            {
+                last.Conjunctive = Conjunctives.Or;
+            }
+
+            last.Statement = whereStatement.where;
+            last.Next = this.ParseStatements(new WhereNode(), statements, index + 1);
+
+            return last;
         }
     }
 }

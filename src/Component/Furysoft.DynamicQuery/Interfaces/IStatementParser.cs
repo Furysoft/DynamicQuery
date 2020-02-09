@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Interfaces
 {
     /// <summary>
-    /// The Statement Parser
+    /// The Statement Parser.
     /// </summary>
     public interface IStatementParser
     {
@@ -15,7 +15,7 @@ namespace Furysoft.DynamicQuery.Interfaces
         /// Parses the query.
         /// </summary>
         /// <param name="query">The query.</param>
-        /// <returns>The <see cref="IQuery"/></returns>
+        /// <returns>The <see cref="IQuery"/>.</returns>
         IQuery ParseQuery(string query);
     }
 }

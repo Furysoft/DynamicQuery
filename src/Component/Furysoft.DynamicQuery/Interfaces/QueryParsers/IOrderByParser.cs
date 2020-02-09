@@ -7,10 +7,10 @@
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
     using System.Collections.Generic;
-    using Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
 
     /// <summary>
-    /// The Order By Parser
+    /// The Order By Parser.
     /// </summary>
     public interface IOrderByParser
     {
@@ -18,7 +18,7 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// Parses the order by.
         /// </summary>
         /// <param name="orderByData">The order by data.</param>
-        /// <returns>The List of order by node</returns>
+        /// <returns>The List of order by node.</returns>
         List<OrderByNode> ParseOrderBy(string orderByData);
     }
 }

@@ -6,12 +6,20 @@
 
 namespace Furysoft.DynamicQuery.Entities.QueryComponents
 {
-    using Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Where Node
+    /// The Where Node.
     /// </summary>
-    public abstract class WhereNode : Node
+    public sealed class WhereNode
     {
+        /// <summary>Gets or sets the conjunctive.</summary>
+        public Conjunctives Conjunctive { get; set; }
+
+        /// <summary>Gets or sets the next.</summary>
+        public WhereNode Next { get; set; }
+
+        /// <summary>Gets or sets the statement.</summary>
+        public WhereStatement Statement { get; set; }
     }
 }

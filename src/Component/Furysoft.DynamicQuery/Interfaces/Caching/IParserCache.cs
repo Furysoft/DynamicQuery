@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Interfaces.Caching
 {
     /// <summary>
-    /// The Parser Cache
+    /// The Parser Cache.
     /// </summary>
     internal interface IParserCache
     {
@@ -15,7 +15,7 @@ namespace Furysoft.DynamicQuery.Interfaces.Caching
         /// Gets the parser.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        /// <returns>The <see cref="IEntityParser{TEntity}"/></returns>
+        /// <returns>The <see cref="IEntityParser{TEntity}"/>.</returns>
         IStatementParser GetParser<TEntity>();
     }
 }

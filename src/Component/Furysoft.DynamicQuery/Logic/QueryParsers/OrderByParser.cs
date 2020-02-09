@@ -9,26 +9,26 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Entities;
-    using Entities.QueryComponents;
-    using Interfaces;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Interfaces;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
     using JetBrains.Annotations;
 
     /// <summary>
-    /// The Order By Parser
+    /// The Order By Parser.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public sealed class OrderByParser<TEntity> : IOrderByParser
     {
         /// <summary>
-        /// The regex query
+        /// The regex query.
         /// </summary>
         // ReSharper disable once StaticMemberInGenericType
         private static readonly Regex RegexQuery = new Regex("(asc|desc)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
 
         /// <summary>
-        /// The entity parser
+        /// The entity parser.
         /// </summary>
         [NotNull]
         private readonly IEntityParser<TEntity> entityParser;
@@ -46,7 +46,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// Parses the order by.
         /// </summary>
         /// <param name="orderByData">The order by data.</param>
-        /// <returns>The List of order by node</returns>
+        /// <returns>The List of order by node.</returns>
         public List<OrderByNode> ParseOrderBy(string orderByData)
         {
             var rtn = new List<OrderByNode>();
@@ -74,7 +74,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="order">The order.</param>
-        /// <returns>The <see cref="OrderByNode"/></returns>
+        /// <returns>The <see cref="OrderByNode"/>.</returns>
         private static OrderByNode GetOrderByNode(string name, string order)
         {
             SortOrder sortOrder;
@@ -92,7 +92,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
             return new OrderByNode
             {
                 SortOrder = sortOrder,
-                Name = name.Trim().Trim('"')
+                Name = name.Trim().Trim('"'),
             };
         }
     }

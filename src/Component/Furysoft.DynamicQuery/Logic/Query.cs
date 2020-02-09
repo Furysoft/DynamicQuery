@@ -7,19 +7,19 @@
 namespace Furysoft.DynamicQuery.Logic
 {
     using System.Collections.Generic;
-    using Entities.Nodes;
-    using Entities.QueryComponents;
-    using Interfaces;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Interfaces;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
 
     /// <summary>
-    /// The Query
+    /// The Query.
     /// </summary>
     /// <seealso cref="IQuery" />
     public sealed class Query : IQuery
     {
         /// <summary>
-        /// The where parser
+        /// The where parser.
         /// </summary>
         private readonly IWhereParser whereParser;
 
@@ -39,7 +39,7 @@ namespace Furysoft.DynamicQuery.Logic
         public PageNode PageNode { get; set; }
 
         /// <summary>Gets or sets the where node.</summary>
-        public Node WhereNode { get; set; }
+        public WhereNode WhereNode { get; set; }
 
         /// <inheritdoc />
         public void Where(string whereClause)
@@ -50,28 +50,11 @@ namespace Furysoft.DynamicQuery.Logic
             {
                 return;
             }
-
-            this.WhereNode = new BinaryNode
-            {
-                LeftNode = node,
-                RightNode = this.WhereNode,
-                Name = null,
-                Conjunctive = Conjunctives.And,
-                Statement = $"{node.Statement} and {this.WhereNode.Statement}"
-            };
         }
 
         /// <inheritdoc />
         public void Where(Node node)
         {
-            this.WhereNode = new BinaryNode
-            {
-                LeftNode = node,
-                RightNode = this.WhereNode,
-                Name = null,
-                Conjunctive = Conjunctives.And,
-                Statement = $"{node.Statement} and {this.WhereNode.Statement}"
-            };
         }
     }
 }

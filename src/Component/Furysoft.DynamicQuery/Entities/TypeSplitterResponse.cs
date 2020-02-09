@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Entities
 {
     /// <summary>
-    /// The Token Splitter Response
+    /// The Token Splitter Response.
     /// </summary>
     public sealed class TypeSplitterResponse
     {

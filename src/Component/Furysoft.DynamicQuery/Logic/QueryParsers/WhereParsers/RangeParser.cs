@@ -8,13 +8,13 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
 {
     using System;
     using System.Linq;
-    using Entities.Nodes;
-    using Entities.Operations;
-    using Helpers;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.Operations;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Logic.Helpers;
 
     /// <summary>
-    /// The Range Parser
+    /// The Range Parser.
     /// </summary>
     /// <seealso cref="IWhereStatementParser" />
     public sealed class RangeParser : IWhereStatementParser
@@ -67,7 +67,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                     Value = lowerVal,
                     Inclusive = upperInclusive,
                     Name = null,
-                    Statement = statement
+                    Statement = statement,
                 };
             }
 
@@ -81,7 +81,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                     Value = upperVal,
                     Inclusive = lowerInclusive,
                     Name = null,
-                    Statement = statement
+                    Statement = statement,
                 };
             }
 
@@ -95,7 +95,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers
                 Lower = lower,
                 Upper = upper,
                 Name = null,
-                Statement = statement
+                Statement = statement,
             };
         }
     }

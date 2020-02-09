@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Entities.Operations
 {
-    using Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Range Node
+    /// The Range Node.
     /// </summary>
     /// <seealso cref="UnaryNode" />
     public sealed class RangeOperator : UnaryNode

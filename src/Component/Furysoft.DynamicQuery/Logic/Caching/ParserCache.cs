@@ -8,19 +8,18 @@ namespace Furysoft.DynamicQuery.Logic.Caching
 {
     using System;
     using System.Collections.Concurrent;
-    using Entities;
-    using Interfaces;
-    using Interfaces.Caching;
-    using Parsers;
-    using QueryParsers;
-    using QueryParsers.WhereParsers;
-    using Splitters;
+    using Furysoft.DynamicQuery.Interfaces;
+    using Furysoft.DynamicQuery.Interfaces.Caching;
+    using Furysoft.DynamicQuery.Logic.QueryParsers;
+    using Furysoft.DynamicQuery.Logic.QueryParsers.WhereParsers;
+    using Furysoft.DynamicQuery.Logic.Splitters;
+    using Furysoft.DynamicQuery.Parsers;
 
     /// <inheritdoc />
     internal sealed class ParserCache : IParserCache
     {
         /// <summary>
-        /// The parser cache
+        /// The parser cache.
         /// </summary>
         private static readonly ConcurrentDictionary<Type, object> Cache = new ConcurrentDictionary<Type, object>();
 
@@ -36,7 +35,7 @@ namespace Furysoft.DynamicQuery.Logic.Caching
         /// Initializes this instance.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        /// <returns>The IEntityParser</returns>
+        /// <returns>The IEntityParser.</returns>
         private static object Initialize<TEntity>()
         {
             var tokenSplitter = new TokenSplitter();

@@ -6,11 +6,11 @@
 
 namespace Furysoft.DynamicQuery.Logic.QueryParsers
 {
-    using Entities.QueryComponents;
-    using Interfaces.QueryParsers;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Interfaces.QueryParsers;
 
     /// <summary>
-    /// The Page Parser
+    /// The Page Parser.
     /// </summary>
     public sealed class PageParser : IPageParser
     {
@@ -18,7 +18,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// Parses the specified page data.
         /// </summary>
         /// <param name="pageData">The page data.</param>
-        /// <returns>The Page Node</returns>
+        /// <returns>The Page Node.</returns>
         public PageNode Parse(string pageData)
         {
             if (pageData == null)
@@ -34,7 +34,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
             return new PageNode
             {
                 Page = page,
-                ItemsPerPage = itemsPerPage
+                ItemsPerPage = itemsPerPage,
             };
         }
     }

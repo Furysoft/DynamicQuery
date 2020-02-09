@@ -6,11 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
-    using Entities.Nodes;
-    using Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
 
     /// <summary>
-    /// The Where Parser
+    /// The Where Parser.
     /// </summary>
     public interface IWhereParser
     {
@@ -18,7 +17,7 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// Parses the where.
         /// </summary>
         /// <param name="where">The where.</param>
-        /// <returns>The <see cref="WhereNode"/></returns>
-        Node ParseWhere(string where);
+        /// <returns>The <see cref="WhereNode"/>.</returns>
+        WhereNode ParseWhere(string where);
     }
 }

@@ -35,13 +35,98 @@ namespace Furysoft.DynamicQuery.Tests.Integration
             var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:asdorderby::age asc page::1,10");
             stopwatch.Stop();
 
-            query.WhereNode = Operator.And(Operator.Equals("asd", 12), Operator.Equals("asd2", 23));
+            query.Where(EqualsNode.CreateEquals("test", "bob"));
+            query.Where("val:bob");
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+        }
+
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenQueryPassedInWithAndAndOrs_ExpectParsedCorrectly()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("where::Name:\"test or name\" and age:aandsd as string orderby::age asc page::1,10");
+            stopwatch.Stop();
 
             query.Where(EqualsNode.CreateEquals("test", "bob"));
             query.Where("val:bob");
 
             // Assert
             this.WriteTimeElapsed(stopwatch);
+        }
+
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenEmptyString_ExpectNullQuery()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>(string.Empty);
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(query.WhereNode, Is.Null);
+            Assert.That(query.OrderByNodes, Is.Null);
+            Assert.That(query.PageNode, Is.Null);
+        }
+
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenNoWhere_ExpectNoWhereOnQueryQuery()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("orderby::age asc page::1,10");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(query.WhereNode, Is.Null);
+            Assert.That(query.OrderByNodes, Is.Not.Null);
+            Assert.That(query.PageNode, Is.Not.Null);
+        }
+
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenNoOrderBy_ExpectNoOrderByOnQueryQuery()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("where::age:test page::1,10");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(query.WhereNode, Is.Not.Null);
+            Assert.That(query.OrderByNodes, Is.Null);
+            Assert.That(query.PageNode, Is.Not.Null);
         }
 
         /// <summary>
@@ -60,13 +145,6 @@ namespace Furysoft.DynamicQuery.Tests.Integration
 
             // Assert
             this.WriteTimeElapsed(stopwatch);
-
-            var queryWhereNode = query.WhereNode as GreaterThanOperator;
-
-            Assert.That(queryWhereNode, Is.Not.Null);
-
-            Assert.That(queryWhereNode.Inclusive, Is.False);
-            Assert.That(queryWhereNode.Value, Is.EqualTo(new DateTime(2018, 1, 1)));
         }
 
         /// <summary>
@@ -89,23 +167,6 @@ namespace Furysoft.DynamicQuery.Tests.Integration
             Assert.That(query.OrderByNodes, Is.Null);
             Assert.That(query.PageNode, Is.Null);
 
-            var whereNode = query.WhereNode as BinaryNode;
-            Assert.That(whereNode, Is.Not.Null);
-
-            var leftNode = whereNode.LeftNode as EqualsOperator;
-            var rightNode = whereNode.RightNode as RangeOperator;
-
-            Assert.That(leftNode, Is.Not.Null);
-            Assert.That(rightNode, Is.Not.Null);
-
-            Assert.That(leftNode.Name, Is.EqualTo("Name"));
-            Assert.That(leftNode.Value, Is.EqualTo("test name"));
-
-            Assert.That(rightNode.Name, Is.EqualTo("age"));
-            Assert.That(rightNode.Lower, Is.EqualTo(10));
-            Assert.That(rightNode.LowerInclusive, Is.EqualTo(false));
-            Assert.That(rightNode.Upper, Is.EqualTo(25));
-            Assert.That(rightNode.UpperInclusive, Is.EqualTo(false));
         }
     }
 }

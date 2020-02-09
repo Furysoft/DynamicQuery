@@ -7,18 +7,17 @@
 namespace Furysoft.DynamicQuery.Logic.Splitters
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Entities;
-    using Exceptions;
-    using Interfaces.Splitters;
+    using Furysoft.DynamicQuery.Entities;
+    using Furysoft.DynamicQuery.Exceptions;
+    using Furysoft.DynamicQuery.Interfaces.Splitters;
 
     /// <inheritdoc />
     public sealed class TypeSplitter : ISplitter<TypeSplitterResponse>
     {
         /// <summary>
-        /// The regex
+        /// The regex.
         /// </summary>
         private static readonly Regex RegexQuery = new Regex(
             "( as )",
@@ -36,17 +35,18 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
                 {
                     Data = query,
                     Type = null,
-                    HasType = false
+                    HasType = false,
                 };
             }
 
-            var splitParts = new List<string>();
-            
+            List<string> splitParts;
+
             // No quote at all, treat literally
             if (lastQuote == -1)
             {
                 splitParts = RegexQuery.Split(query).Where(r => !string.IsNullOrWhiteSpace(r)).ToList();
             }
+
             // There's a quote in here, but it's not the end
             else
             {
@@ -61,10 +61,10 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
                 splitParts = new List<string>
                 {
                     quotedPart,
-                    split[0]
+                    split[0],
                 };
             }
-            
+
             // If there's only one part, then there is no type
             if (splitParts.Count == 1)
             {
@@ -72,7 +72,7 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
                 {
                     Data = query,
                     Type = null,
-                    HasType = false
+                    HasType = false,
                 };
             }
 
@@ -88,7 +88,7 @@ namespace Furysoft.DynamicQuery.Logic.Splitters
             {
                 Data = data,
                 Type = type,
-                HasType = true
+                HasType = true,
             };
         }
 

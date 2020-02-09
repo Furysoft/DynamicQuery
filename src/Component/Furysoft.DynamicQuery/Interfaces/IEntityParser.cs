@@ -7,9 +7,10 @@
 namespace Furysoft.DynamicQuery.Interfaces
 {
     using System.Collections.Generic;
+    using Furysoft.DynamicQuery.Entities.Parsers;
 
     /// <summary>
-    /// The Entity Parser
+    /// The Entity Parser.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public interface IEntityParser<TEntity>
@@ -17,7 +18,7 @@ namespace Furysoft.DynamicQuery.Interfaces
         /// <summary>
         /// Gets the permitted properties.
         /// </summary>
-        List<string> PermittedProperties { get; }
+        List<EntityProperty> PermittedProperties { get; }
 
         /// <summary>
         /// Determines whether the specified name is permitted.

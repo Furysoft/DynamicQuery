@@ -1,15 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EqualsNode.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="EqualsNode.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Furysoft.DynamicQuery.Logic.OperatorFactories
 {
-    using Entities.Operations;
+    using Furysoft.DynamicQuery.Entities.Operations;
 
     /// <summary>
-    /// The Equals Node Factory
+    /// The Equals Node Factory.
     /// </summary>
     public static class EqualsNode
     {
@@ -18,7 +18,7 @@ namespace Furysoft.DynamicQuery.Logic.OperatorFactories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="EqualsOperator"/></returns>
+        /// <returns>The <see cref="EqualsOperator"/>.</returns>
         public static EqualsOperator CreateEquals(string name, string value)
         {
             return new EqualsOperator
@@ -26,7 +26,7 @@ namespace Furysoft.DynamicQuery.Logic.OperatorFactories
                 Statement = $"{name}:{value}",
                 Value = value,
                 Name = name,
-                IsNot = false
+                IsNot = false,
             };
         }
 
@@ -35,7 +35,7 @@ namespace Furysoft.DynamicQuery.Logic.OperatorFactories
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="EqualsOperator"/></returns>
+        /// <returns>The <see cref="EqualsOperator"/>.</returns>
         public static EqualsOperator CreateNotEquals(string name, string value)
         {
             return new EqualsOperator
@@ -43,7 +43,7 @@ namespace Furysoft.DynamicQuery.Logic.OperatorFactories
                 Statement = $"{name}:!{value}",
                 Value = value,
                 Name = name,
-                IsNot = true
+                IsNot = true,
             };
         }
     }

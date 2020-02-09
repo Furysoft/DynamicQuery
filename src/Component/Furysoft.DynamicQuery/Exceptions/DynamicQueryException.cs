@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DynamicQueryException.cs" company="Email Hippo Ltd">
-//   © Email Hippo Ltd
+// <copyright file="DynamicQueryException.cs" company="Simon Paramore">
+// © 2017, Simon Paramore
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ namespace Furysoft.DynamicQuery.Exceptions
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The Dynamic Query Exception
+    /// The Dynamic Query Exception.
     /// </summary>
     [Serializable]
     public class DynamicQueryException : Exception
@@ -48,7 +48,8 @@ namespace Furysoft.DynamicQuery.Exceptions
         /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
         protected DynamicQueryException(
             SerializationInfo info,
-            StreamingContext context) : base(info, context)
+            StreamingContext context)
+            : base(info, context)
         {
         }
     }

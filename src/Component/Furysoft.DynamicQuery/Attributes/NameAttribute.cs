@@ -9,7 +9,7 @@ namespace Furysoft.DynamicQuery.Attributes
     using System;
 
     /// <summary>
-    /// The Name Attribute
+    /// The Name Attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class NameAttribute : Attribute

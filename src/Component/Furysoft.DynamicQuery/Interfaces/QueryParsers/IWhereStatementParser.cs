@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
 {
-    using Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Where Statement Parser
+    /// The Where Statement Parser.
     /// </summary>
     public interface IWhereStatementParser
     {
@@ -19,7 +19,7 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// <param name="statement">The statement.</param>
         /// <param name="type">The type.</param>
         /// <returns>
-        /// The <see cref="UnaryNode" />
+        /// The <see cref="UnaryNode" />.
         /// </returns>
         UnaryNode ParseStatement(string statement, string type = null);
     }

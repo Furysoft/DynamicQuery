@@ -6,13 +6,17 @@
 
 namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
     using Attributes;
+    using DeepEqual.Syntax;
     using DynamicQuery.Logic.QueryParsers;
     using DynamicQuery.Logic.QueryParsers.WhereParsers;
     using DynamicQuery.Logic.Splitters;
     using Entities.Nodes;
     using Entities.Operations;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using JetBrains.Annotations;
     using NUnit.Framework;
     using Parsers;
 
@@ -44,14 +48,18 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
             // Assert
             this.WriteTimeElapsed(stopwatch);
 
-            var equalsOperator = whereNode as EqualsOperator;
+            var equalsOperator = whereNode;
 
             Assert.That(equalsOperator, Is.Not.Null);
 
-            Assert.That(equalsOperator.Statement, Is.EqualTo("testKey:testValue"));
-            Assert.That(equalsOperator.Name, Is.EqualTo("testKey"));
-            Assert.That(equalsOperator.Value, Is.EqualTo("testValue"));
-            Assert.That(equalsOperator.IsNot, Is.False);
+            var expected = new WhereNode
+            {
+                Conjunctive = Conjunctives.None,
+                Next = null,
+                Statement = new WhereStatement { As = null, Value = new EqualsOperator { Statement = "testKey:testValue", Name = "testKey", CaseInsensitive = false, Value = "testValue", IsNot = false } }
+            };
+
+            whereNode.ShouldDeepEqual(expected);
         }
 
         /// <summary>
@@ -76,28 +84,21 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
             // Assert
             this.WriteTimeElapsed(stopwatch);
 
-            var equalsOperator = whereNode as BinaryNode;
+            var next1 = new WhereNode
+            {
+                Conjunctive = Conjunctives.None,
+                Next = null,
+                Statement = new WhereStatement { As = null, Value = new RangeOperator { Statement = "testKey2:[23,2]", Name = "testKey2", Lower = 23, LowerInclusive = false, Upper = 2, UpperInclusive = false } }
+            };
 
-            Assert.That(equalsOperator, Is.Not.Null);
+            var expected = new WhereNode
+            {
+                Conjunctive = Conjunctives.And,
+                Next = next1,
+                Statement = new WhereStatement { As = null, Value = new EqualsOperator { Statement = "testKey:testValue", Name = "testKey", CaseInsensitive = false, Value = "testValue", IsNot = false } }
+            };
 
-            Assert.That(equalsOperator.Statement, Is.EqualTo("testKey:testValue and testKey2:[23,2]"));
-            Assert.That(equalsOperator.LeftNode, Is.Not.Null);
-            Assert.That(equalsOperator.RightNode, Is.Not.Null);
-
-            /* Left Node */
-            var leftNode = equalsOperator.LeftNode as EqualsOperator;
-            Assert.That(leftNode, Is.Not.Null);
-
-            Assert.That(leftNode.Value, Is.EqualTo("testValue"));
-            Assert.That(leftNode.Name, Is.EqualTo("testKey"));
-            Assert.That(leftNode.IsNot, Is.False);
-
-            /* Right Node */
-            var rightNode = equalsOperator.RightNode as RangeOperator;
-            Assert.That(rightNode, Is.Not.Null);
-
-            Assert.That(rightNode.Lower, Is.EqualTo(23));
-            Assert.That(rightNode.Upper, Is.EqualTo(2));
+            whereNode.ShouldDeepEqual(expected);
         }
 
         /// <summary>
@@ -108,10 +109,12 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
         {
             /// <summary>Gets or sets the test key.</summary>
             [Name("testKey")]
+            [UsedImplicitly]
             public string TestKey { get; set; }
 
             /// <summary>Gets or sets the test key2.</summary>
             [Name("testKey2")]
+            [UsedImplicitly]
             public string TestKey2 { get; set; }
         }
     }

@@ -7,7 +7,7 @@
 namespace Furysoft.DynamicQuery.Entities.Nodes
 {
     /// <summary>
-    /// The Node
+    /// The Node.
     /// </summary>
     public abstract class Node
     {

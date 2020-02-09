@@ -7,11 +7,11 @@
 namespace Furysoft.DynamicQuery.Interfaces
 {
     using System.Collections.Generic;
-    using Entities.Nodes;
-    using Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Entities.Nodes;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
 
     /// <summary>
-    /// The Query Interface
+    /// The Query Interface.
     /// </summary>
     public interface IQuery
     {
@@ -22,7 +22,7 @@ namespace Furysoft.DynamicQuery.Interfaces
         PageNode PageNode { get; set; }
 
         /// <summary>Gets or sets the where node.</summary>
-        Node WhereNode { get; set; }
+        WhereNode WhereNode { get; set; }
 
         /// <summary>
         /// Wheres this instance.

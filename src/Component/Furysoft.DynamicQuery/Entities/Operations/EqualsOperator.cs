@@ -6,10 +6,10 @@
 
 namespace Furysoft.DynamicQuery.Entities.Operations
 {
-    using Nodes;
+    using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
-    /// The Equals Node
+    /// The Equals Node.
     /// </summary>
     public sealed class EqualsOperator : UnaryNode
     {

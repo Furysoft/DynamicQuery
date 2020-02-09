@@ -9,10 +9,13 @@ namespace Furysoft.DynamicQuery.Entities.QueryComponents
     using System.Collections.Generic;
 
     /// <summary>
-    /// The Select Node
+    /// The Select Node.
     /// </summary>
     public sealed class SelectNode
     {
+        /// <summary>Gets or sets a value indicating whether [select all].</summary>
+        public bool SelectAll { get; set; } = false;
+
         /// <summary>
         /// Gets or sets the select columns.
         /// </summary>

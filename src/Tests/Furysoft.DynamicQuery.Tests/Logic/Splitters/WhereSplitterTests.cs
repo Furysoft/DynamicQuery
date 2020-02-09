@@ -9,6 +9,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using JetBrains.Annotations;
     using NUnit.Framework;
 
     /// <summary>
@@ -27,7 +28,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
         {
             var testString1 = "test1:value and (test2:value or test3:value)";
 
-            var brackets = ParseBrackets(testString1);
+            ParseBrackets(testString1);
         }
 
         /// <summary>
@@ -129,16 +130,19 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
             /// <summary>
             /// Gets or sets the conjunctive.
             /// </summary>
+            [UsedImplicitly]
             public string Conjunctive { get; set; }
 
             /// <summary>
             /// Gets or sets the left.
             /// </summary>
+            [UsedImplicitly]
             public Node Left { get; set; }
 
             /// <summary>
             /// Gets or sets the right.
             /// </summary>
+            [UsedImplicitly]
             public Node Right { get; set; }
         }
 
@@ -154,6 +158,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
             /// <summary>
             /// Gets or sets the children.
             /// </summary>
+            [UsedImplicitly]
             public List<Node> Children { get; set; }
         }
 
@@ -162,6 +167,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.Splitters
             /// <summary>
             /// Gets or sets the left.
             /// </summary>
+            [UsedImplicitly]
             public string Data { get; set; }
         }
     }
