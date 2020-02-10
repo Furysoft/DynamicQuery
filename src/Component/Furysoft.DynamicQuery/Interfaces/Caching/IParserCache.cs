@@ -6,6 +6,9 @@
 
 namespace Furysoft.DynamicQuery.Interfaces.Caching
 {
+    using Furysoft.DynamicQuery.Entities;
+    using JetBrains.Annotations;
+
     /// <summary>
     /// The Parser Cache.
     /// </summary>
@@ -15,7 +18,8 @@ namespace Furysoft.DynamicQuery.Interfaces.Caching
         /// Gets the parser.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        /// <returns>The <see cref="IEntityParser{TEntity}"/>.</returns>
-        IStatementParser GetParser<TEntity>();
+        /// <param name="options">The options.</param>
+        /// <returns>The <see cref="IEntityParser{TEntity}" />.</returns>
+        IStatementParser GetParser<TEntity>([NotNull] ParserOptions options);
     }
 }

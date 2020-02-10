@@ -17,7 +17,8 @@ namespace Furysoft.DynamicQuery.Interfaces.QueryParsers
         /// Parses the specified page data.
         /// </summary>
         /// <param name="selectData">The select data.</param>
+        /// <param name="separator">The separator.</param>
         /// <returns>The Page Node.</returns>
-        SelectNode Parse(string selectData);
+        SelectNode Parse(string selectData, char separator = ',');
     }
 }

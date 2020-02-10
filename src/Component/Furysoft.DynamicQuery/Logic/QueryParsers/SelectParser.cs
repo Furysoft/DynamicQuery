@@ -38,8 +38,11 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// Parses the specified page data.
         /// </summary>
         /// <param name="selectData">The select data.</param>
-        /// <returns>The Page Node.</returns>
-        public SelectNode Parse(string selectData)
+        /// <param name="separator">The separator.</param>
+        /// <returns>
+        /// The Page Node.
+        /// </returns>
+        public SelectNode Parse(string selectData, char separator = ',')
         {
             if (selectData == "*")
             {
@@ -48,7 +51,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
                 return new SelectNode { SelectAll = true, SelectColumns = permittedProperties };
             }
 
-            var properties = selectData.Split(',').Select(r => r.Trim()).Where(r => this.entityParser.IsPermitted(r)).ToList();
+            var properties = selectData.Split(separator).Select(r => r.Trim()).Where(r => this.entityParser.IsPermitted(r)).ToList();
 
             return new SelectNode { SelectColumns = properties, SelectAll = false };
         }

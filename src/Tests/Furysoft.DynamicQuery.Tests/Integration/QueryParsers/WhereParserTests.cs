@@ -6,7 +6,6 @@
 
 namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
 {
-    using System.Collections.Generic;
     using System.Diagnostics;
     using Attributes;
     using DeepEqual.Syntax;
@@ -15,6 +14,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
     using DynamicQuery.Logic.Splitters;
     using Entities.Nodes;
     using Entities.Operations;
+    using Furysoft.DynamicQuery.Entities;
     using Furysoft.DynamicQuery.Entities.QueryComponents;
     using JetBrains.Annotations;
     using NUnit.Framework;
@@ -38,7 +38,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
             var entityParser = new EntityParser<CustomEntity>();
             var typeSplitter = new TypeSplitter();
             var whereStatementParser = new WhereStatementParser<CustomEntity>(rangeParser, equalsParser, entityParser, typeSplitter);
-            var whereParser = new WhereParser(whereStatementParser);
+            var whereParser = new WhereParser(whereStatementParser, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -74,7 +74,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration.QueryParsers
             var entityParser = new EntityParser<CustomEntity>();
             var typeSplitter = new TypeSplitter();
             var whereStatementParser = new WhereStatementParser<CustomEntity>(rangeParser, equalsParser, entityParser, typeSplitter);
-            var whereParser = new WhereParser(whereStatementParser);
+            var whereParser = new WhereParser(whereStatementParser, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();

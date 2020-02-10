@@ -6,11 +6,9 @@
 
 namespace Furysoft.DynamicQuery.Tests.Integration
 {
-    using System;
     using System.Diagnostics;
     using DynamicQuery.Logic.OperatorFactories;
-    using Entities.Nodes;
-    using Entities.Operations;
+    using Furysoft.DynamicQuery.Entities.QueryComponents;
     using Interfaces;
     using NUnit.Framework;
     using TestHelpers;
@@ -21,48 +19,6 @@ namespace Furysoft.DynamicQuery.Tests.Integration
     [TestFixture]
     public sealed class QueryParserTests : TestBase
     {
-        /// <summary>
-        /// Parses the when query passed in expect parsed correctly.
-        /// </summary>
-        [Test]
-        public void Parse_WhenQueryPassedIn_ExpectParsedCorrectly()
-        {
-            // Arrange
-            IDynamicQueryParser queryParser = new DynamicQueryParser();
-
-            // Act
-            var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:asdorderby::age asc page::1,10");
-            stopwatch.Stop();
-
-            query.Where(EqualsNode.CreateEquals("test", "bob"));
-            query.Where("val:bob");
-
-            // Assert
-            this.WriteTimeElapsed(stopwatch);
-        }
-
-        /// <summary>
-        /// Parses the when query passed in expect parsed correctly.
-        /// </summary>
-        [Test]
-        public void Parse_WhenQueryPassedInWithAndAndOrs_ExpectParsedCorrectly()
-        {
-            // Arrange
-            IDynamicQueryParser queryParser = new DynamicQueryParser();
-
-            // Act
-            var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::Name:\"test or name\" and age:aandsd as string orderby::age asc page::1,10");
-            stopwatch.Stop();
-
-            query.Where(EqualsNode.CreateEquals("test", "bob"));
-            query.Where("val:bob");
-
-            // Assert
-            this.WriteTimeElapsed(stopwatch);
-        }
-
         /// <summary>
         /// Parses the when query passed in expect parsed correctly.
         /// </summary>
@@ -83,6 +39,28 @@ namespace Furysoft.DynamicQuery.Tests.Integration
             Assert.That(query.WhereNode, Is.Null);
             Assert.That(query.OrderByNodes, Is.Null);
             Assert.That(query.PageNode, Is.Null);
+        }
+
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenNoOrderBy_ExpectNoOrderByOnQueryQuery()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("where::age:test page::1,10");
+            stopwatch.Stop();
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
+
+            Assert.That(query.WhereNode, Is.Not.Null);
+            Assert.That(query.OrderByNodes, Is.Null);
+            Assert.That(query.PageNode, Is.Not.Null);
         }
 
         /// <summary>
@@ -111,22 +89,42 @@ namespace Furysoft.DynamicQuery.Tests.Integration
         /// Parses the when query passed in expect parsed correctly.
         /// </summary>
         [Test]
-        public void Parse_WhenNoOrderBy_ExpectNoOrderByOnQueryQuery()
+        public void Parse_WhenQueryPassedIn_ExpectParsedCorrectly()
         {
             // Arrange
             IDynamicQueryParser queryParser = new DynamicQueryParser();
 
             // Act
             var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::age:test page::1,10");
+            var query = queryParser.Parse<TestEntity>("where::Name:\"test name\" and age:asdorderby::age asc page::1,10");
             stopwatch.Stop();
+
+            query.Where(new WhereNode { Statement = new WhereStatement { Value = EqualsNode.CreateEquals("test", "bob") } });
+            query.Where("val:bob");
 
             // Assert
             this.WriteTimeElapsed(stopwatch);
+        }
 
-            Assert.That(query.WhereNode, Is.Not.Null);
-            Assert.That(query.OrderByNodes, Is.Null);
-            Assert.That(query.PageNode, Is.Not.Null);
+        /// <summary>
+        /// Parses the when query passed in expect parsed correctly.
+        /// </summary>
+        [Test]
+        public void Parse_WhenQueryPassedInWithAndAndOrs_ExpectParsedCorrectly()
+        {
+            // Arrange
+            IDynamicQueryParser queryParser = new DynamicQueryParser();
+
+            // Act
+            var stopwatch = Stopwatch.StartNew();
+            var query = queryParser.Parse<TestEntity>("where::Name:\"test or name\" and age:aandsd as string orderby::age asc page::1,10");
+            stopwatch.Stop();
+
+            query.Where(new WhereNode { Statement = new WhereStatement { Value = EqualsNode.CreateEquals("test", "bob") } });
+            query.Where("val:bob");
+
+            // Assert
+            this.WriteTimeElapsed(stopwatch);
         }
 
         /// <summary>
@@ -166,7 +164,6 @@ namespace Furysoft.DynamicQuery.Tests.Integration
 
             Assert.That(query.OrderByNodes, Is.Null);
             Assert.That(query.PageNode, Is.Null);
-
         }
     }
 }

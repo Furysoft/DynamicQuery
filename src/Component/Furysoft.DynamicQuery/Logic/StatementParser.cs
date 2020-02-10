@@ -31,6 +31,12 @@ namespace Furysoft.DynamicQuery.Logic
         private readonly IPageParser pageParser;
 
         /// <summary>
+        /// The select parser.
+        /// </summary>
+        [NotNull]
+        private readonly ISelectParser selectParser;
+
+        /// <summary>
         /// The token splitter.
         /// </summary>
         [NotNull]
@@ -49,16 +55,19 @@ namespace Furysoft.DynamicQuery.Logic
         /// <param name="whereParser">The where parser.</param>
         /// <param name="pageParser">The page parser.</param>
         /// <param name="orderByParser">The order by parser.</param>
+        /// <param name="selectParser">The select parser.</param>
         public StatementParser(
             [NotNull] ISplitter<TokenSplitterResponse> tokenSplitter,
             [NotNull] IWhereParser whereParser,
             [NotNull] IPageParser pageParser,
-            [NotNull] IOrderByParser orderByParser)
+            [NotNull] IOrderByParser orderByParser,
+            [NotNull] ISelectParser selectParser)
         {
             this.tokenSplitter = tokenSplitter;
             this.whereParser = whereParser;
             this.pageParser = pageParser;
             this.orderByParser = orderByParser;
+            this.selectParser = selectParser;
         }
 
         /// <summary>
@@ -72,7 +81,7 @@ namespace Furysoft.DynamicQuery.Logic
         {
             var parts = this.tokenSplitter.SplitByToken(queryString);
 
-            var query = new Query(this.whereParser);
+            var query = new Query(this.whereParser, this.selectParser);
             if (parts.Page != null)
             {
                 query.PageNode = this.pageParser.Parse(parts.Page);
@@ -86,6 +95,11 @@ namespace Furysoft.DynamicQuery.Logic
             if (parts.Where != null)
             {
                 query.WhereNode = this.whereParser.ParseWhere(parts.Where);
+            }
+
+            if (parts.Select != null)
+            {
+                query.SelectNode = this.selectParser.Parse(parts.Select);
             }
 
             return query;

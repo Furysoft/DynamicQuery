@@ -14,6 +14,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
     using Moq;
     using NUnit.Framework;
     using System.Diagnostics;
+    using Furysoft.DynamicQuery.Entities;
     using Furysoft.DynamicQuery.Entities.Nodes;
 
     /// <summary>
@@ -31,7 +32,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             // Arrange
             var mockWhereStatementParser = new Mock<IWhereStatementParser>();
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -53,7 +54,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
             // Arrange
             var mockWhereStatementParser = new Mock<IWhereStatementParser>();
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -79,7 +80,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new EqualsOperator { Statement = "name:test", Name = "name", CaseInsensitive = false, Value = "test", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -111,7 +112,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Returns(new EqualsOperator { Statement = "name:test", Name = "name", CaseInsensitive = false, Value = "test", IsNot = false })
                 .Returns(new EqualsOperator { Statement = "name2:test2", Name = "name2", CaseInsensitive = false, Value = "test2", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -150,7 +151,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Returns(new EqualsOperator { Statement = "name:test", Name = "name", CaseInsensitive = false, Value = "test", IsNot = false })
                 .Returns(new EqualsOperator { Statement = "name2:test2", Name = "name2", CaseInsensitive = false, Value = "test2", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -188,7 +189,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new EqualsOperator { Statement = "name:testandvalue", Name = "name", CaseInsensitive = false, Value = "testandvalue", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -219,7 +220,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new EqualsOperator { Statement = "name:testorvalue", Name = "name", CaseInsensitive = false, Value = "testorvalue", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -250,7 +251,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new EqualsOperator { Statement = "name:\"Test and value\"", Name = "name", CaseInsensitive = false, Value = "Test and value", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();
@@ -281,7 +282,7 @@ namespace Furysoft.DynamicQuery.Tests.Logic.QueryParsers
                 .Setup(r => r.ParseStatement(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new EqualsOperator { Statement = "name:test", Name = "name", CaseInsensitive = false, Value = "test", IsNot = false });
 
-            var whereParser = new WhereParser(mockWhereStatementParser.Object);
+            var whereParser = new WhereParser(mockWhereStatementParser.Object, new ParserOptions());
 
             // Act
             var stopwatch = Stopwatch.StartNew();

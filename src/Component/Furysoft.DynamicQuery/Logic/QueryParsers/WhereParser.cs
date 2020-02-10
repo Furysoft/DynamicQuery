@@ -7,10 +7,12 @@
 namespace Furysoft.DynamicQuery.Logic.QueryParsers
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Text;
-    using System.Text.RegularExpressions;
+    using Furysoft.DynamicQuery.Entities;
     using Furysoft.DynamicQuery.Entities.Nodes;
     using Furysoft.DynamicQuery.Entities.QueryComponents;
+    using Furysoft.DynamicQuery.Exceptions;
     using Furysoft.DynamicQuery.Interfaces.QueryParsers;
     using JetBrains.Annotations;
 
@@ -19,9 +21,6 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
     /// </summary>
     internal sealed class WhereParser : IWhereParser
     {
-        /// <summary>The regex test.</summary>
-        private static readonly Regex RegexTest = new Regex("(and|or)");
-
         /// <summary>
         /// The where statement parser.
         /// </summary>
@@ -29,12 +28,20 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         private readonly IWhereStatementParser whereStatementParser;
 
         /// <summary>
+        /// The parser options.
+        /// </summary>
+        [NotNull]
+        private readonly ParserOptions parserOptions;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="WhereParser" /> class.
         /// </summary>
         /// <param name="whereStatementParser">The where statement parser.</param>
-        public WhereParser([NotNull] IWhereStatementParser whereStatementParser)
+        /// <param name="parserOptions">The parser options.</param>
+        public WhereParser([NotNull] IWhereStatementParser whereStatementParser, [NotNull] ParserOptions parserOptions)
         {
             this.whereStatementParser = whereStatementParser;
+            this.parserOptions = parserOptions;
         }
 
         /// <summary>
@@ -120,11 +127,21 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
 
             if (statements[index] == "and")
             {
+                if (!this.parserOptions.AllowAnd)
+                {
+                    throw new ParseException("where:: operator 'and' is not permitted on this query.");
+                }
+
                 last.Conjunctive = Conjunctives.And;
             }
 
             if (statements[index] == "or")
             {
+                if (!this.parserOptions.AllowOr)
+                {
+                    throw new ParseException("where:: operator 'or' is not permitted on this query.");
+                }
+
                 last.Conjunctive = Conjunctives.Or;
             }
 
