@@ -73,7 +73,7 @@ namespace Furysoft.DynamicQuery.Logic.QueryParsers
         /// </returns>
         public UnaryNode ParseStatement(string statement, string type = null)
         {
-            var strings = statement.Split(':');
+            var strings = statement.Split(new[] { ':' }, 2);
 
             // Validate the left hand property name against the white list
             var propertyName = strings[0].Trim();

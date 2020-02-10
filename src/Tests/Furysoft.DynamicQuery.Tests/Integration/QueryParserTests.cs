@@ -138,7 +138,7 @@ namespace Furysoft.DynamicQuery.Tests.Integration
 
             // Act
             var stopwatch = Stopwatch.StartNew();
-            var query = queryParser.Parse<TestEntity>("where::Name:[2018-01-01,*] as datetime orderby::age asc page::1,10");
+            var query = queryParser.Parse<TestEntity>("where::Name:[2018-01-01T00:00:00,*] as datetime orderby::age asc page::1,10");
             stopwatch.Stop();
 
             // Assert
